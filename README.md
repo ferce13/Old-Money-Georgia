@@ -1,1 +1,0 @@
-# Old-Money-Georgia
