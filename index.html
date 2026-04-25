@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>OLD MONEY — Georgia</title>
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600&family=Cormorant+Garamond:ital,wght@0,300;1,300&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+background: #0a0806;
+font-family: ‘Cormorant Garamond’, serif;
+color: #e8dfc8;
+overflow-x: hidden;
+}
+
+.corner {
+position: fixed;
+width: 60px;
+height: 60px;
+opacity: 0.25;
+z-index: 100;
+pointer-events: none;
+}
+.corner svg { width: 100%; height: 100%; }
+.tl { top: 20px; left: 20px; }
+.tr { top: 20px; right: 20px; transform: scaleX(-1); }
+.bl { bottom: 20px; left: 20px; transform: scaleY(-1); }
+.br { bottom: 20px; right: 20px; transform: scale(-1); }
+
+.hero {
+min-height: 100vh;
+display: flex;
+flex-direction: column;
+align-items: center;
+justify-content: flex-end;
+padding-bottom: 60px;
+position: relative;
+background: #0a0806;
+}
+
+.hero-logo {
+position: absolute;
+top: 0;
+left: 0;
+width: 100%;
+height: 100%;
+object-fit: contain;
+object-position: center top;
+z-index: 0;
+}
+
+.hero-overlay {
+position: absolute;
+inset: 0;
+background: linear-gradient(180deg, rgba(10,8,6,0.1) 0%, rgba(10,8,6,0.1) 50%, rgba(10,8,6,0.85) 80%, rgba(10,8,6,0.95) 100%);
+}
+
+.hero-content {
+position: relative;
+z-index: 2;
+text-align: center;
+}
+
+.ornament-img {
+width: min(88vw, 300px);
+opacity: 0.9;
+margin-bottom: 6px;
+}
+
+.geo {
+font-family: ‘Cinzel’, serif;
+font-size: 11px;
+letter-spacing: 0.5em;
+color: #9a8e75;
+text-transform: uppercase;
+margin-bottom: 8px;
+}
+
+.tagline {
+font-size: 17px;
+font-style: italic;
+font-weight: 300;
+color: rgba(232,223,200,0.8);
+letter-spacing: 0.08em;
+margin-bottom: 36px;
+}
+
+.cta-btn {
+display: inline-block;
+font-family: ‘Cinzel’, serif;
+font-size: 10px;
+letter-spacing: 0.3em;
+text-transform: uppercase;
+color: #0a0806;
+background: linear-gradient(135deg, #b8960c, #d4af37, #b8960c);
+padding: 15px 42px;
+text-decoration: none;
+}
+
+.philosophy {
+padding: 100px 20px;
+text-align: center;
+max-width: 700px;
+margin: 0 auto;
+}
+
+.gold-rule {
+width: 1px;
+height: 70px;
+background: linear-gradient(180deg, transparent, #d4af37, transparent);
+margin: 0 auto 50px;
+opacity: 0.35;
+}
+
+.section-label {
+font-family: ‘Cinzel’, serif;
+font-size: 9px;
+letter-spacing: 0.5em;
+color: #b8960c;
+text-transform: uppercase;
+margin-bottom: 24px;
+}
+
+.section-text {
+font-size: clamp(18px, 3vw, 24px);
+font-weight: 300;
+font-style: italic;
+line-height: 1.8;
+color: rgba(232,223,200,0.7);
+}
+
+.pillars {
+display: grid;
+grid-template-columns: repeat(3, 1fr);
+gap: 1px;
+background: rgba(184,150,12,0.1);
+border: 1px solid rgba(184,150,12,0.1);
+margin: 0 20px 80px;
+}
+
+.pillar {
+padding: 50px 24px;
+text-align: center;
+background: #0a0806;
+}
+
+.pillar-num {
+font-family: ‘Cinzel’, serif;
+font-size: 10px;
+letter-spacing: 0.3em;
+color: #b8960c;
+margin-bottom: 16px;
+}
+
+.pillar-title {
+font-size: 20px;
+font-weight: 400;
+letter-spacing: 0.1em;
+color: #e8dfc8;
+margin-bottom: 10px;
+}
+
+.pillar-text {
+font-size: 13px;
+font-weight: 300;
+color: #9a8e75;
+line-height: 1.7;
+}
+
+.instagram {
+padding: 100px 20px;
+text-align: center;
+background: linear-gradient(180deg, transparent, rgba(184,150,12,0.04), transparent);
+}
+
+.ig-title {
+font-family: ‘Cinzel’, serif;
+font-size: clamp(22px, 6vw, 40px);
+font-weight: 400;
+color: #e8dfc8;
+letter-spacing: 0.1em;
+margin-bottom: 14px;
+}
+
+.ig-sub {
+font-size: 17px;
+font-style: italic;
+color: #9a8e75;
+margin-bottom: 44px;
+}
+
+.ig-btn {
+display: inline-flex;
+align-items: center;
+gap: 12px;
+font-family: ‘Cinzel’, serif;
+font-size: 10px;
+letter-spacing: 0.25em;
+text-transform: uppercase;
+color: #d4af37;
+text-decoration: none;
+border: 1px solid rgba(212,175,55,0.3);
+padding: 16px 44px;
+}
+
+footer {
+border-top: 1px solid rgba(184,150,12,0.12);
+padding: 36px 20px;
+text-align: center;
+}
+.footer-logo {
+font-family: ‘Cinzel’, serif;
+font-size: 13px;
+letter-spacing: 0.4em;
+color: #b8960c;
+margin-bottom: 10px;
+}
+.footer-copy {
+font-size: 10px;
+letter-spacing: 0.2em;
+color: rgba(154,142,117,0.35);
+text-transform: uppercase;
+}
+
+@media (max-width: 500px) {
+.pillars { grid-template-columns: 1fr; }
+}
+</style>
+
+</head>
+<body>
+
+<div class="corner tl"><svg viewBox="0 0 60 60" fill="none"><path d="M1 59V1H59" stroke="#d4af37" stroke-width="0.5"/></svg></div>
+<div class="corner tr"><svg viewBox="0 0 60 60" fill="none"><path d="M1 59V1H59" stroke="#d4af37" stroke-width="0.5"/></svg></div>
+<div class="corner bl"><svg viewBox="0 0 60 60" fill="none"><path d="M1 59V1H59" stroke="#d4af37" stroke-width="0.5"/></svg></div>
+<div class="corner br"><svg viewBox="0 0 60 60" fill="none"><path d="M1 59V1H59" stroke="#d4af37" stroke-width="0.5"/></svg></div>
+
+<section class="hero">
+  <img class="hero-logo" src="https://i.imgur.com/aWep1lQ.jpeg" alt="Old Money Georgia"/>
+  <div class="hero-overlay"></div>
+  <div class="hero-content">
+    <img class="ornament-img" style="display:none" src="data:image/jpeg;base64,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" alt="ornament"/>
+    <p class="geo">Georgia</p>
+    <p class="tagline">For those who know.</p>
+    <a href="https://www.instagram.com/oldmoney.ge" target="_blank" class="cta-btn">Follow Our Journey</a>
+  </div>
+</section>
+
+<div class="philosophy">
+  <div class="gold-rule"></div>
+  <p class="section-label">Philosophy</p>
+  <p class="section-text">True elegance is never loud.<br>It is felt before it is seen.</p>
+</div>
+
+<div class="pillars">
+  <div class="pillar">
+    <p class="pillar-num">I</p>
+    <p class="pillar-title">Timeless</p>
+    <p class="pillar-text">Beyond trends. Beyond seasons. Pieces that endure.</p>
+  </div>
+  <div class="pillar">
+    <p class="pillar-num">II</p>
+    <p class="pillar-title">Refined</p>
+    <p class="pillar-text">Every detail considered. Every choice deliberate.</p>
+  </div>
+  <div class="pillar">
+    <p class="pillar-num">III</p>
+    <p class="pillar-title">Exclusive</p>
+    <p class="pillar-text">Not for everyone. By design.</p>
+  </div>
+</div>
+
+<div class="instagram">
+  <h2 class="ig-title">The Collection</h2>
+  <p class="ig-sub">Available exclusively on Instagram</p>
+  <a href="https://www.instagram.com/oldmoney.ge" target="_blank" class="ig-btn">
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/></svg>
+    @oldmoney.ge
+  </a>
+</div>
+
+<footer>
+  <p class="footer-logo">OLD MONEY</p>
+  <p class="footer-copy">&copy; 2025 oldmoney.ge &mdash; Georgia</p>
+</footer>
+
+</body>
+</html>
