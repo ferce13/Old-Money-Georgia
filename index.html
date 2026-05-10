@@ -271,10 +271,35 @@ text-transform: uppercase;
 @media (max-width: 500px) {
 .pillars { grid-template-columns: 1fr; }
 }
+  .particles-container {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 1;
+  overflow: hidden;
+}
+.particle {
+  position: absolute;
+  width: 2px;
+  height: 2px;
+  background: #d4af37;
+  border-radius: 50%;
+  opacity: 0;
+  animation: particleFloat linear infinite;
+}
+@keyframes particleFloat {
+  0% { opacity: 0; transform: translateY(100vh) scale(0); }
+  10% { opacity: 0.4; }
+  90% { opacity: 0.1; }
+  100% { opacity: 0; transform: translateY(-10vh) scale(1); }
+}
+
 </style>
 
 </head>
 <body>
+  <div class="particles-container" id="particles"></div>
+
   <!-- Splash Screen -->
 <div id="splash" style="
   position: fixed;
@@ -368,6 +393,22 @@ text-transform: uppercase;
       }, 800);
     }, 2000);
   });
+</script>
+<script>
+(function() {
+  var container = document.getElementById('particles');
+  for (var i = 0; i < 25; i++) {
+    var p = document.createElement('div');
+    p.className = 'particle';
+    p.style.left = Math.random() * 100 + '%';
+    var size = (1 + Math.random() * 2) + 'px';
+    p.style.width = size;
+    p.style.height = size;
+    p.style.animationDuration = (10 + Math.random() * 18) + 's';
+    p.style.animationDelay = (Math.random() * 20) + 's';
+    container.appendChild(p);
+  }
+})();
 </script>
 
 </body>
