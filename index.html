@@ -310,21 +310,36 @@ text-transform: uppercase;
   background: linear-gradient(90deg, transparent, #d4af37, transparent);
   transition: width 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
 }
-.pillar:hover::after {
+.pillar:active::after {
   width: 60%;
 }
 .pillar .pillar-title,
 .pillar .pillar-text {
   transition: color 0.5s ease;
 }
-.pillar:hover .pillar-title {
+.pillar:active .pillar-title {
   color: #d4af37;
 }
-.pillar:hover .pillar-text {
+.pillar:active .pillar-text {
   color: #e8dfc8;
 }
-
+.touch-ring {
+  position: fixed;
+  pointer-events: none;
+  width: 0;
+  height: 0;
+  border: 1px solid rgba(212,175,55,0.6);
+  border-radius: 50%;
+  transform: translate(-50%, -50%);
+  animation: ringExpand 0.8s ease-out forwards;
+  z-index: 9998;
+}
+@keyframes ringExpand {
+  0% { width: 0; height: 0; opacity: 0.8; }
+  100% { width: 80px; height: 80px; opacity: 0; }
+}
 </style>
+
 
 </head>
 <body>
@@ -439,6 +454,26 @@ text-transform: uppercase;
     container.appendChild(p);
   }
 })();
+</script>
+<script>
+document.querySelectorAll('.pillar').forEach(function(p) {
+  p.addEventListener('click', function() {
+    document.querySelectorAll('.pillar').forEach(function(el) {
+      if (el !== p) el.classList.remove('active');
+    });
+    p.classList.toggle('active');
+  });
+});
+</script>
+<script>
+document.addEventListener('touchstart', function(e) {
+  var ring = document.createElement('div');
+  ring.className = 'touch-ring';
+  ring.style.left = e.touches[0].clientX + 'px';
+  ring.style.top = e.touches[0].clientY + 'px';
+  document.body.appendChild(ring);
+  setTimeout(function() { ring.remove(); }, 800);
+});
 </script>
 
 </body>
