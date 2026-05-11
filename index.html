@@ -293,6 +293,36 @@ text-transform: uppercase;
   90% { opacity: 0.1; }
   100% { opacity: 0; transform: translateY(-10vh) scale(1); }
 }
+.pillar {
+  position: relative;
+  overflow: hidden;
+  transition: background 0.5s ease;
+  cursor: pointer;
+}
+.pillar::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 0;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, #d4af37, transparent);
+  transition: width 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+.pillar:hover::after {
+  width: 60%;
+}
+.pillar .pillar-title,
+.pillar .pillar-text {
+  transition: color 0.5s ease;
+}
+.pillar:hover .pillar-title {
+  color: #d4af37;
+}
+.pillar:hover .pillar-text {
+  color: #e8dfc8;
+}
 
 </style>
 
