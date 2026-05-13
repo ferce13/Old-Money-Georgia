@@ -275,6 +275,11 @@ text-decoration: none;
 border: 1px solid rgba(212,175,55,0.3);
 padding: 16px 44px;
 }
+.ig-btn:active {
+  box-shadow: 0 0 25px rgba(212,175,55,0.3), 0 0 50px rgba(212,175,55,0.1);
+  border-color: rgba(212,175,55,0.6);
+  transition: all 0.3s ease;
+}
 
 footer {
 border-top: 1px solid rgba(184,150,12,0.12);
@@ -425,7 +430,9 @@ text-transform: uppercase;
   padding: 80px 20px;
   text-align: center;
   max-width: 500px;
-  margin: 0 auto;
+  margin: 0 auto;border: 1px solid rgba(212,175,55,0.15);
+  margin-left: 20px;
+  margin-right: 20px;
 }
 
 .waitlist-text {
@@ -831,6 +838,19 @@ document.addEventListener('touchstart', function(e) {
       if (i >= text.length) clearInterval(interval);
     }, 80);
   }, startDelay);
+})();
+</script>
+<script>
+(function() {
+  var heroContent = document.querySelector('.hero-content');
+  if (!heroContent) return;
+  window.addEventListener('scroll', function() {
+    var scrollY = window.pageYOffset;
+    var fade = 1 - (scrollY / 400);
+    if (fade < 0) fade = 0;
+    heroContent.style.opacity = fade;
+    heroContent.style.transform = 'translateY(' + (scrollY * 0.15) + 'px)';
+  });
 })();
 </script>
 
