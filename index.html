@@ -715,6 +715,13 @@ document.addEventListener('touchstart', function(e) {
   var observer = new IntersectionObserver(function(entries) {
     entries.forEach(function(entry) {
       if (entry.isIntersecting) {
+        var parent = entry.target.parentElement;
+        var siblings = parent.querySelectorAll('.reveal');
+        var index = 0;
+        for (var i = 0; i < siblings.length; i++) {
+          if (siblings[i] === entry.target) { index = i; break; }
+        }
+        entry.target.style.transitionDelay = (index * 0.25) + 's';
         entry.target.classList.add('visible');
       }
     });
@@ -722,6 +729,7 @@ document.addEventListener('touchstart', function(e) {
   els.forEach(function(el) { observer.observe(el); });
 })();
 </script>
+
 <div id="cookieBanner" class="cookie-banner">
   <p class="cookie-text">We use cookies to ensure the finest experience.</p>
   <button id="cookieAccept" class="cookie-btn">Allow</button>
