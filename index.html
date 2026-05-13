@@ -151,7 +151,27 @@ color: #0a0806;
 background: linear-gradient(135deg, #b8960c, #d4af37, #b8960c);
 padding: 15px 42px;
 text-decoration: none;
+position: relative;
+overflow: hidden;
 }
+
+.cta-btn::after {
+content: '';
+position: absolute;
+top: 0;
+left: -100%;
+width: 60%;
+height: 100%;
+background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+animation: shimmer 3s ease-in-out infinite;
+}
+
+@keyframes shimmer {
+0% { left: -100%; }
+50% { left: 100%; }
+100% { left: 100%; }
+}
+
 
 .philosophy {
 padding: 100px 20px;
@@ -404,6 +424,76 @@ text-transform: uppercase;
 .gold-rule.visible {
   height: 70px;
 }
+.waitlist {
+  padding: 80px 20px;
+  text-align: center;
+  max-width: 500px;
+  margin: 0 auto;
+}
+
+.waitlist-text {
+  font-size: 17px;
+  font-style: italic;
+  font-weight: 300;
+  color: rgba(232,223,200,0.7);
+  line-height: 1.8;
+  margin-bottom: 36px;
+}
+
+.waitlist-form {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  align-items: center;
+}
+
+.waitlist-input {
+  width: 100%;
+  max-width: 320px;
+  padding: 14px 20px;
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 15px;
+  color: #e8dfc8;
+  background: transparent;
+  border: 1px solid rgba(212,175,55,0.25);
+  letter-spacing: 0.05em;
+  outline: none;
+  transition: border-color 0.4s ease;
+}
+
+.waitlist-input::placeholder {
+  color: rgba(154,142,117,0.5);
+  font-style: italic;
+}
+
+.waitlist-input:focus {
+  border-color: rgba(212,175,55,0.6);
+}
+
+.waitlist-btn {
+  font-family: 'Cinzel', serif;
+  font-size: 10px;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: #0a0806;
+  background: linear-gradient(135deg, #b8960c, #d4af37, #b8960c);
+  border: none;
+  padding: 14px 40px;
+  cursor: pointer;
+  position: relative;
+  overflow: hidden;
+}
+
+.waitlist-btn::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 60%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+  animation: shimmer 3s ease-in-out infinite;
+}
 
 </style>
 
@@ -471,6 +561,18 @@ text-transform: uppercase;
     <p class="pillar-title">Exclusive</p>
     <p class="pillar-text">Not for everyone. By design.</p>
   </div>
+</div>
+<div class="waitlist">
+  <div class="gold-rule reveal"></div>
+  <p class="section-label reveal">Be The First</p>
+  <p class="waitlist-text reveal">Our first collection is coming soon.<br>Leave your email to be notified.</p>
+  <form class="waitlist-form reveal" action="https://formsubmit.co/info@oldmoney.ge" method="POST">
+    <input type="hidden" name="_subject" value="New Waitlist Signup — Old Money Georgia">
+    <input type="hidden" name="_captcha" value="false">
+    <input type="hidden" name="_next" value="https://oldmoney.ge/">
+    <input type="email" name="email" placeholder="Your email" required class="waitlist-input">
+    <button type="submit" class="waitlist-btn">Join The List</button>
+  </form>
 </div>
 
 <div class="instagram">
