@@ -347,7 +347,45 @@ text-transform: uppercase;
 @keyframes ringExpand {
   0% { width: 0; height: 0; opacity: 0.8; }
   100% { width: 80px; height: 80px; opacity: 0; }
+}.splash-letter {
+  font-family: 'Cinzel', serif;
+  font-size: 52px;
+  color: #d4af37;
+  letter-spacing: 8px;
+  opacity: 0;
+  transform: translateY(12px);
+  animation: splashFadeIn 0.8s ease forwards;
 }
+
+.splash-line {
+  width: 0;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, #d4af37, transparent);
+  margin-top: 16px;
+  animation: splashLineGrow 0.8s ease 1s forwards;
+}
+
+.splash-tagline {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 14px;
+  color: rgba(212,175,55,0.6);
+  letter-spacing: 4px;
+  margin-top: 12px;
+  font-style: italic;
+  opacity: 0;
+  animation: splashFadeIn 0.8s ease 1.4s forwards;
+}
+
+@keyframes splashFadeIn {
+  0% { opacity: 0; transform: translateY(12px); }
+  100% { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes splashLineGrow {
+  0% { width: 0; }
+  100% { width: 60px; }
+}
+
 </style>
 
 
@@ -366,24 +404,16 @@ text-transform: uppercase;
   justify-content: center;
   flex-direction: column;
   z-index: 9999;
-  transition: opacity 0.8s ease;
+  transition: opacity 1.2s ease;
 ">
-  <p style="
-    font-family: 'Cinzel', serif;
-    font-size: 48px;
-    color: #d4af37;
-    letter-spacing: 8px;
-    margin: 0;
-  ">OM</p>
-  <p style="
-    font-family: 'Cormorant Garamond', serif;
-    font-size: 14px;
-    color: rgba(212,175,55,0.6);
-    letter-spacing: 4px;
-    margin-top: 12px;
-    font-style: italic;
-  ">For those who know</p>
+  <div style="display:flex; gap:4px;">
+    <span class="splash-letter" style="animation-delay:0.3s">O</span>
+    <span class="splash-letter" style="animation-delay:0.6s">M</span>
+  </div>
+  <div class="splash-line"></div>
+  <p class="splash-tagline">For those who know</p>
 </div>
+
   <div class="corner tl"><svg viewBox="0 0 60 60" fill="none"><path d="M1 59V1H59" stroke="#d4af37" stroke-width="0.5"/></svg></div>
 <div class="corner tr"><svg viewBox="0 0 60 60" fill="none"><path d="M1 59V1H59" stroke="#d4af37" stroke-width="0.5"/></svg></div>
 <div class="corner bl"><svg viewBox="0 0 60 60" fill="none"><path d="M1 59V1H59" stroke="#d4af37" stroke-width="0.5"/></svg></div>
