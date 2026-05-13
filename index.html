@@ -385,6 +385,25 @@ text-transform: uppercase;
   0% { width: 0; }
   100% { width: 60px; }
 }
+.reveal {
+  opacity: 0;
+  transform: translateY(30px);
+  transition: opacity 0.8s ease, transform 0.8s ease;
+}
+
+.reveal.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.gold-rule {
+  height: 0;
+  transition: height 1.2s ease;
+}
+
+.gold-rule.visible {
+  height: 70px;
+}
 
 </style>
 
@@ -431,9 +450,9 @@ text-transform: uppercase;
 </section>
 
 <div class="philosophy">
-  <div class="gold-rule"></div>
-  <p class="section-label">Philosophy</p>
-  <p class="section-text">True elegance is never loud.<br>It is felt before it is seen.</p>
+  <div class="gold-rule reveal"></div>
+  <p class="section-label reveal">Philosophy</p>
+  <p class="section-text reveal">True elegance is never loud.<br>It is felt before it is seen.</p>
 </div>
 
 <div class="pillars">
@@ -455,8 +474,9 @@ text-transform: uppercase;
 </div>
 
 <div class="instagram">
-  <h2 class="ig-title">The Collection</h2>
-  <p class="ig-sub">Available exclusively on Instagram</p>
+  <h2 class="ig-title reveal">The Collection</h2>
+<p class="ig-sub reveal">Available exclusively on Instagram</p>
+
   <a href="https://www.instagram.com/oldmoney.ge" target="_blank" class="ig-btn">
     <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/></svg>
     @oldmoney.ge
@@ -514,6 +534,19 @@ document.addEventListener('touchstart', function(e) {
   document.body.appendChild(ring);
   setTimeout(function() { ring.remove(); }, 800);
 });
+</script>
+<script>
+(function() {
+  var els = document.querySelectorAll('.reveal');
+  var observer = new IntersectionObserver(function(entries) {
+    entries.forEach(function(entry) {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+      }
+    });
+  }, { threshold: 0.15 });
+  els.forEach(function(el) { observer.observe(el); });
+})();
 </script>
 
 </body>
