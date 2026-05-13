@@ -846,7 +846,7 @@ document.addEventListener('touchstart', function(e) {
   if (!heroContent) return;
   window.addEventListener('scroll', function() {
     var scrollY = window.pageYOffset;
-    var fade = 1 - (scrollY / 400);
+    var fade = 1 - (scrollY /1000);
     if (fade < 0) fade = 0;
     heroContent.style.opacity = fade;
     heroContent.style.transform = 'translateY(' + (scrollY * 0.15) + 'px)';
