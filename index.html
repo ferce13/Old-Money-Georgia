@@ -96,13 +96,10 @@ object-fit: contain;
 object-position: center top;
 z-index: 0;
 will-change: transform;
-animation: breathe 10s ease-in-out infinite;
+
 }
 
-@keyframes breathe {
-  0%, 100% { transform: scale(1); }
-  50% { transform: scale(1.03); }
-}
+
 
 
 .hero-overlay {
@@ -798,6 +795,17 @@ document.addEventListener('touchstart', function(e) {
   resize();
   draw();
   window.addEventListener('resize', resize);
+})();
+</script>
+<script>
+(function() {
+  var heroImg = document.querySelector('.hero-logo');
+  if (!heroImg) return;
+  window.addEventListener('scroll', function() {
+    var scrollY = window.pageYOffset;
+    var speed = 0.4;
+    heroImg.style.transform = 'scale(' + (1 + 0.03 * (Math.cos(Date.now() / 5000 * Math.PI * 2) * 0.5 + 0.5)) + ') translateY(' + (scrollY * speed) + 'px)';
+  });
 })();
 </script>
 
