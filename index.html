@@ -494,6 +494,67 @@ text-transform: uppercase;
   background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
   animation: shimmer 3s ease-in-out infinite;
 }
+.cookie-banner {
+  position: fixed;
+  bottom: 30px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: rgba(10,8,6,0.95);
+  border: 1px solid rgba(212,175,55,0.2);
+  padding: 18px 28px;
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  z-index: 9997;
+  opacity: 0;
+  animation: cookieFadeIn 0.8s ease 3.5s forwards;
+  backdrop-filter: blur(10px);
+}
+
+.cookie-text {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 13px;
+  font-style: italic;
+  color: rgba(232,223,200,0.7);
+  letter-spacing: 0.03em;
+}
+
+.cookie-btn {
+  font-family: 'Cinzel', serif;
+  font-size: 9px;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: #0a0806;
+  background: linear-gradient(135deg, #b8960c, #d4af37, #b8960c);
+  border: none;
+  padding: 10px 24px;
+  cursor: pointer;
+  white-space: nowrap;
+  position: relative;
+  overflow: hidden;
+}
+
+.cookie-btn::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 60%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+  animation: shimmer 3s ease-in-out infinite;
+}
+
+.cookie-banner.hidden {
+  opacity: 0;
+  transition: opacity 0.5s ease;
+  pointer-events: none;
+}
+
+@keyframes cookieFadeIn {
+  0% { opacity: 0; transform: translateX(-50%) translateY(20px); }
+  100% { opacity: 1; transform: translateX(-50%) translateY(0); }
+}
 
 </style>
 
@@ -648,6 +709,23 @@ document.addEventListener('touchstart', function(e) {
     });
   }, { threshold: 0.15 });
   els.forEach(function(el) { observer.observe(el); });
+})();
+</script>
+<div id="cookieBanner" class="cookie-banner">
+  <p class="cookie-text">We use cookies to ensure the finest experience.</p>
+  <button id="cookieAccept" class="cookie-btn">Allow</button>
+</div>
+<script>
+(function() {
+  if (localStorage.getItem('cookieAccepted')) {
+    var b = document.getElementById('cookieBanner');
+    if (b) b.style.display = 'none';
+    return;
+  }
+  document.getElementById('cookieAccept').addEventListener('click', function() {
+    localStorage.setItem('cookieAccepted', 'true');
+    document.getElementById('cookieBanner').classList.add('hidden');
+  });
 })();
 </script>
 
