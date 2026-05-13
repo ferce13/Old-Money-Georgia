@@ -57,8 +57,7 @@ background: #0a0806;
 font-family: ‘Cormorant Garamond’, serif;
 color: #e8dfc8;
 overflow-x: hidden;
-opacity: 0;
-transition: opacity 0.8s ease;
+
 }
 
 .corner {
@@ -579,9 +578,7 @@ html {
   background: rgba(212,175,55,0.3);
   color: #e8dfc8;
 }
-#splash {
-  opacity: 1 !important;
-}
+
 
 </style>
 
@@ -692,7 +689,6 @@ html {
       splash.style.opacity = '0';
       setTimeout(function() {
         splash.style.display = 'none';
-        document.body.style.opacity = '1';
       }, 800);
 
     }, 2000);
