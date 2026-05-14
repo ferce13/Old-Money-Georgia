@@ -1041,6 +1041,86 @@ document.addEventListener('touchstart', function(e) {
   }
 })();
 </script>
+<!-- ═══ Page Transitions ═══ -->
+<div id="pageFade" style="
+  position: fixed;
+  inset: 0;
+  background: #0a0806;
+  z-index: 99999;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.6s ease;
+"></div>
+
+<script>
+(function() {
+  // Fade in при загрузке
+  var fade = document.getElementById('pageFade');
+  fade.style.opacity = '1';
+  window.addEventListener('load', function() {
+    setTimeout(function() {
+      fade.style.opacity = '0';
+    }, 100);
+  });
+
+  // Fade out при клике на ссылку
+  document.addEventListener('click', function(e) {
+    var link = e.target.closest('a');
+    if (!link) return;
+    var href = link.getAttribute('href');
+    if (!href) return;
+    // Только локальные ссылки (не instagram, не mailto)
+    if (href.startsWith('http') || href.startsWith('mailto') || href.startsWith('#') || link.getAttribute('target') === '_blank') return;
+
+    e.preventDefault();
+    fade.style.opacity = '1';
+    setTimeout(function() {
+      window.location.href = href;
+    }, 600);
+  });
+})();
+</script>
+<!-- ═══ Parallax Scroll ═══ -->
+<script>
+(function() {
+  // Добавляем parallax к секциям
+  var items = [
+    { sel: '.philosophy .section-label', speed: 0.08 },
+    { sel: '.philosophy .section-text', speed: 0.05 },
+    { sel: '.pillar-title', speed: 0.06 },
+    { sel: '.ig-title', speed: 0.07 },
+    { sel: '.ig-sub', speed: 0.04 },
+    { sel: '.waitlist .section-label', speed: 0.08 },
+    { sel: '.waitlist-text', speed: 0.05 }
+  ];
+
+  var elements = [];
+  items.forEach(function(item) {
+    var els = document.querySelectorAll(item.sel);
+    els.forEach(function(el) {
+      elements.push({ el: el, speed: item.speed, top: 0 });
+    });
+  });
+
+  function update() {
+    var scrollY = window.pageYOffset;
+    var winH = window.innerHeight;
+    for (var i = 0; i < elements.length; i++) {
+      var obj = elements[i];
+      var rect = obj.el.getBoundingClientRect();
+      // Только если элемент видим
+      if (rect.top < winH && rect.bottom > 0) {
+        var center = rect.top + rect.height / 2;
+        var offset = (center - winH / 2) * obj.speed;
+        obj.el.style.transform = 'translateY(' + offset + 'px)';
+      }
+    }
+    requestAnimationFrame(update);
+  }
+
+  update();
+})();
+</script>
 
 </body>
 </html>
