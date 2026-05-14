@@ -627,7 +627,8 @@ html {
     <p class="tagline" id="typewriter"></p>
 
     <a href="https://www.instagram.com/oldmoney.ge" target="_blank" class="cta-btn" style="margin-bottom:14px;">Follow Our Journey</a>
-    <a href="about.html" class="cta-btn" style="background:transparent; color:#d4af37; border:1px solid rgba(212,175,55,0.3);">Our Story</a>
+    <a href="about.html" class="cta-btn" style="background:none; color:#d4af37; border:1px solid rgba(212,175,55,0.25); font-size:9px;">Our Story</a>
+
 
 
   </div>
@@ -863,10 +864,11 @@ document.addEventListener('touchstart', function(e) {
   if (!heroContent) return;
   window.addEventListener('scroll', function() {
     var scrollY = window.pageYOffset;
-    var fade = 1 - (scrollY /1000);
-    if (fade < 0) fade = 0;
+    var fade = Math.pow(Math.max(1 - (scrollY / 400), 0), 2);
     heroContent.style.opacity = fade;
-    heroContent.style.transform = 'translateY(' + (scrollY * 0.15) + 'px)';
+    heroContent.style.transform = 'translateY(' + (scrollY * 0.3) + 'px) scale(' + (0.97 + fade * 0.03) + ')';
+    heroContent.style.filter = 'blur(' + ((1 - fade) * 6) + 'px)';
+
   });
 })();
 </script>
