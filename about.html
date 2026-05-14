@@ -1,0 +1,579 @@
+<!DOCTYPE html>
+
+<html lang="ka">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Old Money Georgia — Origins</title>
+<meta name="description" content="The origins of Old Money Georgia. Born where Europe meets Asia. Rooted in 8,000 years of tradition.">
+<link rel="icon" type="image/png" href="favicon.png">
+<link rel="apple-touch-icon" href="favicon.png">
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600&family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&family=Noto+Serif+Georgian:wght@200;300;400&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+html {
+scroll-behavior: smooth;
+scrollbar-width: thin;
+scrollbar-color: rgba(212,175,55,0.15) transparent;
+}
+
+body {
+background: #0a0806;
+font-family: ‘Cormorant Garamond’, serif;
+color: #e8dfc8;
+overflow-x: hidden;
+}
+
+::selection {
+background: rgba(212,175,55,0.3);
+color: #e8dfc8;
+}
+
+.back-btn {
+position: fixed;
+top: 24px;
+left: 24px;
+z-index: 100;
+display: flex;
+align-items: center;
+gap: 10px;
+text-decoration: none;
+color: rgba(154,142,117,0.5);
+font-family: ‘Cinzel’, serif;
+font-size: 8px;
+letter-spacing: 0.3em;
+text-transform: uppercase;
+transition: color 0.4s ease;
+mix-blend-mode: difference;
+}
+
+.back-btn:active { color: #d4af37; }
+
+.back-btn svg {
+width: 16px;
+height: 16px;
+stroke: currentColor;
+fill: none;
+stroke-width: 1.5;
+}
+
+.progress-bar {
+position: fixed;
+top: 0;
+left: 0;
+height: 1px;
+background: linear-gradient(90deg, #8a7a45, #d4af37, #e8d48b);
+z-index: 200;
+width: 0%;
+}
+
+.opening {
+min-height: 100vh;
+display: flex;
+align-items: center;
+justify-content: center;
+position: relative;
+overflow: hidden;
+}
+
+.opening-bg {
+position: absolute;
+inset: 0;
+background:
+radial-gradient(ellipse at 30% 50%, rgba(212,175,55,0.04) 0%, transparent 60%),
+radial-gradient(ellipse at 70% 30%, rgba(184,150,12,0.03) 0%, transparent 50%);
+}
+
+.opening-content {
+text-align: center;
+z-index: 1;
+padding: 40px 20px;
+}
+
+.opening-line {
+width: 0;
+height: 1px;
+background: linear-gradient(90deg, transparent, #d4af37, transparent);
+margin: 0 auto 40px;
+opacity: 0;
+}
+
+.opening-title {
+font-family: ‘Cinzel’, serif;
+font-size: clamp(28px, 8vw, 56px);
+font-weight: 400;
+letter-spacing: 0.15em;
+color: #e8dfc8;
+opacity: 0;
+transform: translateY(20px);
+}
+
+.opening-subtitle {
+font-family: ‘Cinzel’, serif;
+font-size: 9px;
+letter-spacing: 0.6em;
+color: #b8960c;
+text-transform: uppercase;
+margin-top: 20px;
+opacity: 0;
+transform: translateY(10px);
+}
+
+.opening.in-view .opening-line {
+animation: lineGrow 1.2s ease 0.3s forwards;
+}
+.opening.in-view .opening-title {
+animation: fadeUp 1s ease 0.8s forwards;
+}
+.opening.in-view .opening-subtitle {
+animation: fadeUp 1s ease 1.2s forwards;
+}
+
+.story-block {
+min-height: 80vh;
+display: flex;
+align-items: center;
+justify-content: center;
+padding: 80px 20px;
+position: relative;
+}
+
+.story-block::before {
+content: ‘’;
+position: absolute;
+left: 50%;
+top: 0;
+width: 1px;
+height: 100%;
+background: linear-gradient(180deg, transparent, rgba(212,175,55,0.06), transparent);
+}
+
+.story-inner {
+max-width: 580px;
+text-align: center;
+position: relative;
+}
+
+.story-num {
+font-family: ‘Cinzel’, serif;
+font-size: 10px;
+letter-spacing: 0.5em;
+color: rgba(212,175,55,0.25);
+margin-bottom: 30px;
+opacity: 0;
+transform: translateY(15px);
+}
+
+.story-en {
+font-size: clamp(18px, 3.5vw, 26px);
+font-weight: 300;
+font-style: italic;
+line-height: 2;
+color: rgba(232,223,200,0.65);
+letter-spacing: 0.02em;
+opacity: 0;
+transform: translateY(20px);
+}
+
+.story-block.in-view .story-num {
+animation: fadeUp 0.8s ease 0.2s forwards;
+}
+.story-block.in-view .story-en {
+animation: fadeUp 0.9s ease 0.5s forwards;
+}
+
+.georgian-section {
+min-height: 100vh;
+display: flex;
+align-items: center;
+justify-content: center;
+position: relative;
+overflow: hidden;
+padding: 60px 20px;
+}
+
+.georgian-bg {
+position: absolute;
+inset: 0;
+background: radial-gradient(ellipse at 50% 50%, rgba(212,175,55,0.06) 0%, transparent 50%);
+opacity: 0;
+transition: opacity 1.5s ease;
+}
+
+.georgian-section.in-view .georgian-bg {
+opacity: 1;
+}
+
+.georgian-inner {
+max-width: 620px;
+text-align: center;
+position: relative;
+}
+
+.georgian-ornament {
+font-family: ‘Cinzel’, serif;
+font-size: 8px;
+letter-spacing: 1em;
+color: rgba(212,175,55,0.2);
+margin-bottom: 50px;
+opacity: 0;
+}
+
+.georgian-text {
+font-family: ‘Noto Serif Georgian’, serif;
+font-size: clamp(16px, 3.5vw, 22px);
+font-weight: 300;
+line-height: 2.2;
+letter-spacing: 0.03em;
+text-align: center;
+padding: 0 10px;
+background: linear-gradient(135deg, #8a7a45 0%, #c4a94d 20%, #e8d48b 42%, #d4af37 58%, #c4a94d 75%, #8a7a45 100%);
+background-size: 200% 200%;
+-webkit-background-clip: text;
+-webkit-text-fill-color: transparent;
+background-clip: text;
+opacity: 0;
+transform: translateY(15px);
+}
+
+.georgian-section.in-view .georgian-text {
+animation: fadeUp 1.2s ease 0.4s forwards, goldShimmer 6s ease-in-out 1.6s infinite;
+}
+
+.georgian-section.in-view .georgian-ornament {
+animation: fadeUp 0.8s ease 0.1s forwards;
+}
+
+.georgian-translation {
+font-size: 13px;
+font-style: italic;
+font-weight: 300;
+color: rgba(154,142,117,0.35);
+margin-top: 40px;
+letter-spacing: 0.05em;
+line-height: 1.8;
+opacity: 0;
+}
+
+.georgian-section.in-view .georgian-translation {
+animation: fadeUp 0.8s ease 1s forwards;
+}
+
+@keyframes goldShimmer {
+0% { background-position: 0% 50%; }
+50% { background-position: 100% 50%; }
+100% { background-position: 0% 50%; }
+}
+
+.signup {
+min-height: 70vh;
+display: flex;
+align-items: center;
+justify-content: center;
+padding: 100px 20px;
+position: relative;
+}
+
+.signup-inner {
+max-width: 440px;
+text-align: center;
+}
+
+.signup-rule {
+width: 1px;
+height: 60px;
+background: linear-gradient(180deg, transparent, rgba(212,175,55,0.25), transparent);
+margin: 0 auto 40px;
+opacity: 0;
+}
+
+.signup-label {
+font-family: ‘Cinzel’, serif;
+font-size: 9px;
+letter-spacing: 0.5em;
+color: #b8960c;
+text-transform: uppercase;
+margin-bottom: 20px;
+opacity: 0;
+}
+
+.signup-text {
+font-size: 17px;
+font-style: italic;
+font-weight: 300;
+color: rgba(232,223,200,0.5);
+line-height: 1.8;
+margin-bottom: 36px;
+opacity: 0;
+}
+
+.signup-form {
+display: flex;
+flex-direction: column;
+gap: 14px;
+align-items: center;
+opacity: 0;
+}
+
+.signup-input {
+width: 100%;
+max-width: 320px;
+padding: 14px 20px;
+font-family: ‘Cormorant Garamond’, serif;
+font-size: 15px;
+color: #e8dfc8;
+background: transparent;
+border: 1px solid rgba(212,175,55,0.2);
+letter-spacing: 0.05em;
+outline: none;
+transition: border-color 0.4s ease, box-shadow 0.4s ease;
+}
+
+.signup-input::placeholder {
+color: rgba(154,142,117,0.4);
+font-style: italic;
+}
+
+.signup-input:focus {
+border-color: rgba(212,175,55,0.5);
+box-shadow: 0 0 20px rgba(212,175,55,0.05);
+}
+
+.signup-btn {
+font-family: ‘Cinzel’, serif;
+font-size: 10px;
+letter-spacing: 0.3em;
+text-transform: uppercase;
+color: #0a0806;
+background: linear-gradient(135deg, #b8960c, #d4af37, #b8960c);
+border: none;
+padding: 14px 40px;
+cursor: pointer;
+position: relative;
+overflow: hidden;
+transition: transform 0.3s ease;
+}
+
+.signup-btn:active {
+transform: scale(0.97);
+}
+
+.signup-btn::after {
+content: ‘’;
+position: absolute;
+top: 0; left: -100%;
+width: 60%; height: 100%;
+background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+animation: shimmer 3s ease-in-out infinite;
+}
+
+.signup.in-view .signup-rule { animation: fadeUp 0.8s ease 0.2s forwards; }
+.signup.in-view .signup-label { animation: fadeUp 0.8s ease 0.4s forwards; }
+.signup.in-view .signup-text { animation: fadeUp 0.8s ease 0.6s forwards; }
+.signup.in-view .signup-form { animation: fadeUp 0.8s ease 0.8s forwards; }
+
+.about-footer {
+border-top: 1px solid rgba(184,150,12,0.08);
+padding: 30px 20px;
+text-align: center;
+}
+
+.about-footer a {
+font-family: ‘Cinzel’, serif;
+font-size: 8px;
+letter-spacing: 0.3em;
+color: rgba(154,142,117,0.3);
+text-decoration: none;
+text-transform: uppercase;
+transition: color 0.3s ease;
+}
+
+.about-footer a:active {
+color: #d4af37;
+}
+
+.particles {
+position: fixed;
+inset: 0;
+pointer-events: none;
+z-index: 0;
+overflow: hidden;
+}
+
+.particle {
+position: absolute;
+width: 2px;
+height: 2px;
+background: #d4af37;
+border-radius: 50%;
+opacity: 0;
+animation: particleFloat linear infinite;
+}
+
+@keyframes particleFloat {
+0% { opacity: 0; transform: translateY(100vh) scale(0); }
+10% { opacity: 0.3; }
+90% { opacity: 0.05; }
+100% { opacity: 0; transform: translateY(-10vh) scale(1); }
+}
+
+@keyframes fadeUp {
+0% { opacity: 0; transform: translateY(15px); }
+100% { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes lineGrow {
+0% { width: 0; opacity: 0; }
+100% { width: min(60vw, 200px); opacity: 0.4; }
+}
+
+@keyframes shimmer {
+0% { left: -100%; }
+50% { left: 100%; }
+100% { left: 100%; }
+}
+
+.corner {
+position: fixed;
+width: 50px;
+height: 50px;
+opacity: 0.15;
+z-index: 100;
+pointer-events: none;
+}
+.corner svg { width: 100%; height: 100%; }
+.tl { top: 16px; left: 16px; }
+.tr { top: 16px; right: 16px; transform: scaleX(-1); }
+.bl { bottom: 16px; left: 16px; transform: scaleY(-1); }
+.br { bottom: 16px; right: 16px; transform: scale(-1); }
+</style>
+
+</head>
+<body>
+
+<div class="progress-bar" id="progress"></div>
+<div class="particles" id="particles"></div>
+
+<div class="corner tl"><svg viewBox="0 0 60 60" fill="none"><path d="M1 59V1H59" stroke="#d4af37" stroke-width="0.5"/></svg></div>
+<div class="corner tr"><svg viewBox="0 0 60 60" fill="none"><path d="M1 59V1H59" stroke="#d4af37" stroke-width="0.5"/></svg></div>
+<div class="corner bl"><svg viewBox="0 0 60 60" fill="none"><path d="M1 59V1H59" stroke="#d4af37" stroke-width="0.5"/></svg></div>
+<div class="corner br"><svg viewBox="0 0 60 60" fill="none"><path d="M1 59V1H59" stroke="#d4af37" stroke-width="0.5"/></svg></div>
+
+<a href="https://oldmoney.ge/" class="back-btn">
+  <svg viewBox="0 0 24 24"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+  Back
+</a>
+
+<section class="opening" id="opening">
+  <div class="opening-bg"></div>
+  <div class="opening-content">
+    <div class="opening-line"></div>
+    <h1 class="opening-title">Origins</h1>
+    <p class="opening-subtitle">Where it all begins</p>
+  </div>
+</section>
+
+<section class="story-block" id="story1">
+  <div class="story-inner">
+    <p class="story-num">I</p>
+    <p class="story-en">
+      Born where Europe meets Asia &#8212;<br>
+      at the edge of the Black Sea,<br>
+      in the shadow of the Caucasus.
+    </p>
+  </div>
+</section>
+
+<section class="story-block" id="story2">
+  <div class="story-inner">
+    <p class="story-num">II</p>
+    <p class="story-en">
+      8,000 years of tradition<br>
+      taught us one thing:<br>
+      what endures was never rushed.
+    </p>
+  </div>
+</section>
+
+<section class="story-block" id="story3">
+  <div class="story-inner">
+    <p class="story-num">III</p>
+    <p class="story-en">
+      We don&#39;t follow heritage.<br>
+      We carry it.
+    </p>
+  </div>
+</section>
+
+<section class="georgian-section" id="georgian">
+  <div class="georgian-bg"></div>
+  <div class="georgian-inner">
+    <p class="georgian-ornament">&#10022; &#10022; &#10022;</p>
+    <p class="georgian-text">
+      &#x10EE;&#x10D8;&#x10D3;&#x10D8; &#x10EC;&#x10D0;&#x10E0;&#x10E1;&#x10E3;&#x10DA;&#x10E1;&#x10D0; &#x10D3;&#x10D0; &#x10DB;&#x10DD;&#x10DB;&#x10D0;&#x10D5;&#x10D0;&#x10DA;&#x10E1; &#x10E8;&#x10DD;&#x10E0;&#x10D8;&#x10E1;: &#x10D8;&#x10E1;&#x10E2;&#x10DD;&#x10E0;&#x10D8;&#x10D4;&#x10D1;&#x10D8;, &#x10E0;&#x10DD;&#x10DB;&#x10DA;&#x10D4;&#x10D1;&#x10DB;&#x10D0;&#x10EA; &#x10D7;&#x10E5;&#x10D5;&#x10D4;&#x10DC;&#x10D0;&#x10DB;&#x10D3;&#x10D4; &#x10DB;&#x10DD;&#x10D0;&#x10E6;&#x10EC;&#x10D8;&#x10D4;&#x10E1; &#x10D3;&#x10D0; &#x10D0;&#x10EE;&#x10DA;&#x10D0; &#x10D7;&#x10E5;&#x10D5;&#x10D4;&#x10DC;&#x10D7;&#x10D0;&#x10DC; &#x10D4;&#x10E0;&#x10D7;&#x10D0;&#x10D3; &#x10D0;&#x10D2;&#x10E0;&#x10EB;&#x10D4;&#x10DA;&#x10D4;&#x10D1;&#x10D4;&#x10DC; &#x10E1;&#x10E3;&#x10DC;&#x10D7;&#x10E5;&#x10D5;&#x10D0;&#x10E1;.
+    </p>
+    <p class="georgian-translation">
+      A bridge between past and future:<br>
+      stories that reached you and now<br>
+      continue to breathe alongside you.
+    </p>
+  </div>
+</section>
+
+<section class="signup" id="signup">
+  <div class="signup-inner">
+    <div class="signup-rule"></div>
+    <p class="signup-label">Be The First</p>
+    <p class="signup-text">Something is coming.<br>Leave your mark.</p>
+    <form class="signup-form" action="https://formsubmit.co/62b40e1d1ae22d08b8bf37d72c65cea5" method="POST">
+      <input type="hidden" name="_subject" value="New Signup - About Page">
+      <input type="hidden" name="_captcha" value="false">
+      <input type="hidden" name="_next" value="https://oldmoney.ge/about.html">
+      <input type="email" name="email" placeholder="Your email" required class="signup-input">
+      <button type="submit" class="signup-btn">Join The List</button>
+    </form>
+  </div>
+</section>
+
+<div class="about-footer">
+  <a href="https://oldmoney.ge/">&#8592; Return to Old Money Georgia</a>
+</div>
+
+<script>
+(function() {
+  var c = document.getElementById('particles');
+  for (var i = 0; i < 18; i++) {
+    var p = document.createElement('div');
+    p.className = 'particle';
+    p.style.left = Math.random() * 100 + '%';
+    var s = (1 + Math.random() * 2) + 'px';
+    p.style.width = s;
+    p.style.height = s;
+    p.style.animationDuration = (12 + Math.random() * 20) + 's';
+    p.style.animationDelay = (Math.random() * 15) + 's';
+    c.appendChild(p);
+  }
+})();
+
+window.addEventListener('scroll', function() {
+  var h = document.documentElement.scrollHeight - window.innerHeight;
+  var pct = h > 0 ? (window.pageYOffset / h) * 100 : 0;
+  document.getElementById('progress').style.width = pct + '%';
+});
+
+(function() {
+  var sections = document.querySelectorAll('.opening, .story-block, .georgian-section, .signup');
+  var observer = new IntersectionObserver(function(entries) {
+    entries.forEach(function(entry) {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('in-view');
+      }
+    });
+  }, { threshold: 0.25 });
+  sections.forEach(function(s) { observer.observe(s); });
+})();
+</script>
+
+</body>
+</html>
