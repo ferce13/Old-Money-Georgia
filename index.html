@@ -884,6 +884,111 @@ document.addEventListener('touchstart', function(e) {
   });
 })();
 </script>
+<!-- ═══ Background Music ═══ -->
+<audio id="bgMusic" loop preload="auto">
+  <source src="music.mp3" type="audio/mpeg">
+</audio>
+
+<div id="musicBtn" style="
+  position: fixed;
+  bottom: 24px;
+  right: 24px;
+  width: 40px;
+  height: 40px;
+  border: 1px solid rgba(212,175,55,0.3);
+  background: rgba(10,8,6,0.85);
+  backdrop-filter: blur(10px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  z-index: 9999;
+  transition: border-color 0.4s, box-shadow 0.4s;
+" onclick="toggleMusic()">
+  <svg id="musicIcon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#d4af37" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M9 18V5l12-2v13"/>
+    <circle cx="6" cy="18" r="3"/>
+    <circle cx="18" cy="16" r="3"/>
+  </svg>
+</div>
+
+<style>
+#musicBtn:active {
+  border-color: rgba(212,175,55,0.6);
+  box-shadow: 0 0 20px rgba(212,175,55,0.2);
+}
+#musicBtn.playing {
+  border-color: rgba(212,175,55,0.5);
+}
+#musicBtn.playing::after {
+  content: '';
+  position: absolute;
+  inset: -4px;
+  border: 1px solid rgba(212,175,55,0.15);
+  animation: musicPulse 2s ease-in-out infinite;
+}
+@keyframes musicPulse {
+  0%, 100% { opacity: 0.3; transform: scale(1); }
+  50% { opacity: 0; transform: scale(1.3); }
+}
+</style>
+
+<script>
+(function() {
+  var audio = document.getElementById('bgMusic');
+  var btn = document.getElementById('musicBtn');
+  var playing = false;
+
+  audio.volume = 0;
+
+  function fadeIn() {
+    var vol = 0;
+    var fade = setInterval(function() {
+      vol += 0.01;
+      if (vol >= 0.25) { vol = 0.25; clearInterval(fade); }
+      audio.volume = vol;
+    }, 50);
+  }
+
+  function fadeOut(cb) {
+    var vol = audio.volume;
+    var fade = setInterval(function() {
+      vol -= 0.01;
+      if (vol <= 0) { vol = 0; clearInterval(fade); if (cb) cb(); }
+      audio.volume = vol;
+    }, 30);
+  }
+
+  window.toggleMusic = function() {
+    if (!playing) {
+      audio.play().then(function() {
+        fadeIn();
+        playing = true;
+        btn.classList.add('playing');
+        btn.querySelector('svg').style.stroke = '#d4af37';
+        localStorage.setItem('omMusic', 'on');
+      }).catch(function() {});
+    } else {
+      fadeOut(function() { audio.pause(); });
+      playing = false;
+      btn.classList.remove('playing');
+      btn.querySelector('svg').style.stroke = 'rgba(154,142,117,0.5)';
+      localStorage.setItem('omMusic', 'off');
+    }
+  };
+
+  if (localStorage.getItem('omMusic') === 'on') {
+    document.addEventListener('click', function autoResume() {
+      audio.play().then(function() {
+        fadeIn();
+        playing = true;
+        btn.classList.add('playing');
+      }).catch(function() {});
+      document.removeEventListener('click', autoResume);
+    }, { once: true });
+  }
+})();
+</script>
 
 </body>
 </html>
