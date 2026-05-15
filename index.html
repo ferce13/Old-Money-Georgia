@@ -1134,27 +1134,7 @@ document.addEventListener('touchstart', function(e) {
 })();
 
 </script>
-<script>
-(function() {
-  var form = document.querySelector('.waitlist-form');
-  if (!form) return;
-  form.addEventListener('submit', function(e) {
-    e.preventDefault();
-    var data = new FormData(form);
-    fetch(form.action, {
-      method: 'POST',
-      body: data
-      
-    }).then(function() {
-      form.style.display = 'none';
-      document.getElementById('waitlistSuccess').style.display = 'block';
-    }).catch(function() {
-      form.style.display = 'none';
-      document.getElementById('waitlistSuccess').style.display = 'block';
-    });
-  });
-})();
-</script>
+
 
 
 </body>
