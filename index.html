@@ -50,6 +50,9 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600&family=Cormorant+Garamond:ital,wght@0,300;1,300&display=swap" rel="stylesheet">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
 <style>
 *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
 
@@ -83,7 +86,7 @@ display: flex;
 flex-direction: column;
 align-items: center;
 justify-content: flex-end;
-padding-bottom: 60px;
+padding-bottom: 100px;
 position: relative;
 background: #0a0806;
 overflow: hidden;
@@ -118,11 +121,7 @@ z-index: 2;
 text-align: center;
 }
 
-.ornament-img {
-width: min(88vw, 300px);
-opacity: 0.9;
-margin-bottom: 6px;
-}
+
 
 .geo {
 font-family: ‘Cinzel’, serif;
@@ -140,11 +139,12 @@ font-weight: 300;
 color: rgba(232,223,200,0.8);
 letter-spacing: 0.08em;
 margin-bottom: 36px;
+min-height: 26px;
 }
 
 .cta-btn {
 display: inline-block;
-font-family: 'Cormorant Garamond', serif;
+font-family: 'Cinzel', serif;
 font-size: 10px;
 letter-spacing: 0.3em;
 text-transform: uppercase;
@@ -287,7 +287,8 @@ padding: 16px 44px;
 
 footer {
 border-top: 1px solid rgba(184,150,12,0.12);
-padding: 36px 20px;
+padding: 50px 20px;
+margin-top: 20px;
 text-align: center;
 }
 .footer-logo {
@@ -305,8 +306,15 @@ text-transform: uppercase;
 }
 
 @media (max-width: 500px) {
-.pillars { grid-template-columns: 1fr; }
+  .pillars { grid-template-columns: 1fr; }
+  .hero-content .cta-btn {
+    display: block;
+    width: 220px;
+    margin: 0 auto 14px;
+    text-align: center;
+  }
 }
+
   .particles-container {
   position: fixed;
   inset: 0;
@@ -475,7 +483,9 @@ text-transform: uppercase;
 }
 
 .waitlist-input:focus {
-  border-color: rgba(212,175,55,0.6);
+  border-top: 1px solid rgba(212,175,55,0.08);
+  border-bottom: 1px solid rgba(212,175,55,0.08);
+
 }
 
 .waitlist-btn {
@@ -614,7 +624,7 @@ html {
   justify-content: center;
   flex-direction: column;
   z-index: 9999;
-  transition: opacity 1.2s ease;
+  transition: opacity 0.8s ease;
 ">
   <div style="display:flex; gap:4px;">
     <span class="splash-letter" style="animation-delay:0.3s">O</span>
