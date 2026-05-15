@@ -1143,8 +1143,8 @@ document.addEventListener('touchstart', function(e) {
     var data = new FormData(form);
     fetch(form.action, {
       method: 'POST',
-      body: data,
-      headers: { 'Accept': 'application/json' }
+      body: data
+      
     }).then(function() {
       form.style.display = 'none';
       document.getElementById('waitlistSuccess').style.display = 'block';
