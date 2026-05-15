@@ -846,25 +846,22 @@ document.addEventListener('touchstart', function(e) {
       ctx.fillStyle = grad;
       ctx.fillRect(0, 0, w, h);
     }
-    requestAnimationFrame(draw);
+          animId = requestAnimationFrame(draw);
   }
+
+  var animId;
+  document.addEventListener('visibilitychange', function() {
+    if (document.hidden) { cancelAnimationFrame(animId); }
+    else { draw(); }
+  });
 
   resize();
   draw();
+
   window.addEventListener('resize', resize);
 })();
 </script>
-<script>
-(function() {
-  var heroImg = document.querySelector('.hero-logo');
-  if (!heroImg) return;
-  window.addEventListener('scroll', function() {
-    var scrollY = window.pageYOffset;
-    var speed = 0.4;
-    heroImg.style.transform = 'scale(' + (1 + 0.03 * (Math.cos(Date.now() / 5000 * Math.PI * 2) * 0.5 + 0.5)) + ') translateY(' + (scrollY * speed) + 'px)';
-  });
-})();
-</script>
+
 <script>
 (function() {
   var text = 'For those who know.';
@@ -896,7 +893,7 @@ document.addEventListener('touchstart', function(e) {
 </script>
 
 <!-- ═══ Background Music ═══ -->
-<audio id="bgMusic" loop preload="auto">
+<audio id="bgMusic" loop preload="none">
   <source src="music.mp3" type="audio/mpeg">
 </audio>
 
@@ -1112,11 +1109,19 @@ document.addEventListener('touchstart', function(e) {
         obj.el.style.transform = 'translateY(' + offset + 'px)';
       }
     }
-    requestAnimationFrame(update);
+        parallaxId = requestAnimationFrame(update);
   }
 
+    var parallaxId;
+  document.addEventListener('visibilitychange', function() {
+    if (document.hidden) { cancelAnimationFrame(parallaxId); }
+    else { update(); }
+  });
+
   update();
+
 })();
+
 </script>
 <script>
 (function() {
