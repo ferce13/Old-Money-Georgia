@@ -812,22 +812,8 @@ document.addEventListener('touchstart', function(e) {
   // или сразу если уже был включён на другой странице
   var musicPref = localStorage.getItem('omMusic');
 
-  if (musicPref === 'off') {
-    // Пользователь выключил — не трогаем
-  } else {
-    // Первый визит (null) или был включён ('on')
-    // Ждём любой тап/клик (Safari требует user gesture)
-    document.addEventListener('touchstart', function autoStart() {
-      startPlaying();
-      document.removeEventListener('touchstart', autoStart);
-      document.removeEventListener('click', autoStart);
-    }, { once: true });
-    document.addEventListener('click', function autoStart() {
-      startPlaying();
-      document.removeEventListener('touchstart', autoStart);
-      document.removeEventListener('click', autoStart);
-    }, { once: true });
-  }
+    // Музыка только по кнопке
+
 })();
 </script>
 <!-- ═══ Page Transitions ═══ -->
