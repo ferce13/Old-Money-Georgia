@@ -1,0 +1,734 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<title>Privacy Policy — Old Money Georgia</title>
+<meta name="description" content="Privacy Policy for Old Money Georgia. How we handle your data with the discretion it deserves.">
+<meta name="robots" content="index, follow">
+<link rel="canonical" href="https://oldmoney.ge/privacy.html">
+<link rel="icon" type="image/png" href="favicon.png">
+<link rel="apple-touch-icon" href="favicon.png">
+<meta name="theme-color" content="#0a0806">
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-BV3T1X57VX"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-BV3T1X57VX');
+</script>
+
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600&family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300&display=swap" rel="stylesheet">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+<style>
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  background: #0a0806;
+  font-family: 'Cormorant Garamond', serif;
+  color: #e8dfc8;
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+}
+
+::selection {
+  background: rgba(212,175,55,0.3);
+  color: #e8dfc8;
+}
+
+/* ══════ Corner Ornaments ══════ */
+.corner {
+  position: fixed;
+  width: 60px;
+  height: 60px;
+  opacity: 0.25;
+  z-index: 100;
+  pointer-events: none;
+}
+.corner svg { width: 100%; height: 100%; }
+.tl { top: 20px; left: 20px; }
+.tr { top: 20px; right: 20px; transform: scaleX(-1); }
+.bl { bottom: 20px; left: 20px; transform: scaleY(-1); }
+.br { bottom: 20px; right: 20px; transform: scale(-1); }
+
+/* ══════ Background Canvas ══════ */
+#meshCanvas {
+  position: fixed;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* ══════ Header ══════ */
+.header {
+  position: relative;
+  z-index: 2;
+  text-align: center;
+  padding: 80px 20px 40px;
+}
+
+.header-brand {
+  font-family: 'Cinzel', serif;
+  font-size: 11px;
+  letter-spacing: 0.5em;
+  color: #d4af37;
+  text-transform: uppercase;
+  text-decoration: none;
+  display: inline-block;
+  padding: 8px 0;
+  transition: opacity 0.4s ease;
+}
+
+.header-brand:active { opacity: 0.6; }
+
+.header-line {
+  width: 1px;
+  height: 50px;
+  background: linear-gradient(180deg, transparent, rgba(212,175,55,0.4), transparent);
+  margin: 30px auto 0;
+}
+
+/* ══════ Hero Title ══════ */
+.policy-hero {
+  position: relative;
+  z-index: 2;
+  text-align: center;
+  padding: 40px 20px 60px;
+}
+
+.policy-hero-label {
+  font-family: 'Cinzel', serif;
+  font-size: 9px;
+  letter-spacing: 0.5em;
+  color: #b8960c;
+  text-transform: uppercase;
+  margin-bottom: 20px;
+  opacity: 0;
+  animation: fadeUp 0.8s ease 0.3s forwards;
+}
+
+.policy-hero-title {
+  font-family: 'Cinzel', serif;
+  font-size: clamp(28px, 7vw, 48px);
+  font-weight: 400;
+  color: #e8dfc8;
+  letter-spacing: 0.08em;
+  line-height: 1.3;
+  margin-bottom: 20px;
+  opacity: 0;
+  animation: fadeUp 0.8s ease 0.5s forwards;
+}
+
+.policy-hero-sub {
+  font-size: 17px;
+  font-style: italic;
+  font-weight: 300;
+  color: rgba(232,223,200,0.6);
+  letter-spacing: 0.05em;
+  opacity: 0;
+  animation: fadeUp 0.8s ease 0.7s forwards;
+}
+
+/* ══════ Content ══════ */
+.policy-content {
+  position: relative;
+  z-index: 2;
+  max-width: 680px;
+  margin: 0 auto;
+  padding: 0 24px 100px;
+}
+
+.policy-section {
+  margin-bottom: 60px;
+  opacity: 0;
+  transform: translateY(25px);
+  transition: opacity 0.8s ease, transform 0.8s ease;
+}
+
+.policy-section.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.policy-divider {
+  width: 40px;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, #d4af37, transparent);
+  margin: 0 auto 50px;
+  opacity: 0.4;
+}
+
+.policy-number {
+  font-family: 'Cinzel', serif;
+  font-size: 9px;
+  letter-spacing: 0.4em;
+  color: rgba(212,175,55,0.5);
+  text-transform: uppercase;
+  margin-bottom: 12px;
+}
+
+.policy-heading {
+  font-family: 'Cinzel', serif;
+  font-size: clamp(18px, 4vw, 24px);
+  font-weight: 400;
+  color: #e8dfc8;
+  letter-spacing: 0.1em;
+  margin-bottom: 20px;
+  line-height: 1.4;
+}
+
+.policy-text {
+  font-size: clamp(15px, 2.5vw, 17px);
+  font-weight: 300;
+  color: rgba(232,223,200,0.65);
+  line-height: 1.9;
+  letter-spacing: 0.02em;
+}
+
+.policy-text strong {
+  color: rgba(232,223,200,0.85);
+  font-weight: 400;
+}
+
+.policy-text a {
+  color: #d4af37;
+  text-decoration: none;
+  border-bottom: 1px solid rgba(212,175,55,0.25);
+  transition: border-color 0.3s ease;
+}
+
+.policy-text a:active {
+  border-color: rgba(212,175,55,0.7);
+}
+
+/* ══════ Contact Card ══════ */
+.contact-card {
+  border: 1px solid rgba(212,175,55,0.12);
+  padding: 40px 30px;
+  text-align: center;
+  margin-top: 60px;
+  position: relative;
+  background: rgba(10,8,6,0.6);
+}
+
+.contact-card::before {
+  content: '';
+  position: absolute;
+  top: -1px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 60px;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, #d4af37, transparent);
+}
+
+.contact-label {
+  font-family: 'Cinzel', serif;
+  font-size: 9px;
+  letter-spacing: 0.4em;
+  color: #b8960c;
+  text-transform: uppercase;
+  margin-bottom: 16px;
+}
+
+.contact-email {
+  font-size: 18px;
+  font-style: italic;
+  font-weight: 300;
+  color: #d4af37;
+  text-decoration: none;
+  letter-spacing: 0.05em;
+  transition: opacity 0.3s ease;
+}
+
+.contact-email:active { opacity: 0.6; }
+
+.contact-address {
+  font-size: 13px;
+  font-weight: 300;
+  color: rgba(154,142,117,0.5);
+  margin-top: 14px;
+  letter-spacing: 0.05em;
+  line-height: 1.7;
+}
+
+/* ══════ Back Link ══════ */
+.back-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  font-family: 'Cinzel', serif;
+  font-size: 10px;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  color: #d4af37;
+  text-decoration: none;
+  border: 1px solid rgba(212,175,55,0.25);
+  padding: 14px 36px;
+  margin-top: 60px;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.back-link:active {
+  border-color: rgba(212,175,55,0.6);
+  box-shadow: 0 0 25px rgba(212,175,55,0.15);
+}
+
+/* ══════ Footer ══════ */
+footer {
+  position: relative;
+  z-index: 2;
+  border-top: 1px solid rgba(184,150,12,0.12);
+  padding: 50px 20px 40px;
+  text-align: center;
+}
+
+.footer-logo {
+  font-family: 'Cinzel', serif;
+  font-size: 13px;
+  letter-spacing: 0.4em;
+  color: #b8960c;
+  margin-bottom: 10px;
+}
+
+.footer-copy {
+  font-size: 10px;
+  letter-spacing: 0.2em;
+  color: rgba(154,142,117,0.35);
+  text-transform: uppercase;
+}
+
+/* ══════ Animations ══════ */
+@keyframes fadeUp {
+  0% { opacity: 0; transform: translateY(20px); }
+  100% { opacity: 1; transform: translateY(0); }
+}
+
+/* ══════ Particles ══════ */
+.particles-container {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 1;
+  overflow: hidden;
+}
+
+.particle {
+  position: absolute;
+  width: 3px;
+  height: 3px;
+  background: #d4af37;
+  border-radius: 50%;
+  opacity: 0;
+  animation: particleFloat linear infinite;
+}
+
+@keyframes particleFloat {
+  0% { opacity: 0; transform: translateY(100vh) scale(0); }
+  10% { opacity: 0.4; }
+  90% { opacity: 0.1; }
+  100% { opacity: 0; transform: translateY(-10vh) scale(1); }
+}
+
+/* ══════ Touch Ring ══════ */
+.touch-ring {
+  position: fixed;
+  pointer-events: none;
+  width: 0;
+  height: 0;
+  border: 1px solid rgba(212,175,55,0.6);
+  border-radius: 50%;
+  transform: translate(-50%, -50%);
+  animation: ringExpand 0.8s ease-out forwards;
+  z-index: 9998;
+}
+
+@keyframes ringExpand {
+  0% { width: 0; height: 0; opacity: 0.8; }
+  100% { width: 80px; height: 80px; opacity: 0; }
+}
+</style>
+</head>
+
+<body>
+<canvas id="meshCanvas"></canvas>
+<div class="particles-container" id="particles"></div>
+
+<!-- Corner Ornaments -->
+<div class="corner tl"><svg viewBox="0 0 60 60" fill="none"><path d="M1 59V1H59" stroke="#d4af37" stroke-width="0.5"/></svg></div>
+<div class="corner tr"><svg viewBox="0 0 60 60" fill="none"><path d="M1 59V1H59" stroke="#d4af37" stroke-width="0.5"/></svg></div>
+<div class="corner bl"><svg viewBox="0 0 60 60" fill="none"><path d="M1 59V1H59" stroke="#d4af37" stroke-width="0.5"/></svg></div>
+<div class="corner br"><svg viewBox="0 0 60 60" fill="none"><path d="M1 59V1H59" stroke="#d4af37" stroke-width="0.5"/></svg></div>
+
+<!-- Header -->
+<header class="header">
+  <a href="/" class="header-brand">Old Money Georgia</a>
+  <div class="header-line"></div>
+</header>
+
+<!-- Hero -->
+<section class="policy-hero">
+  <p class="policy-hero-label">Legal</p>
+  <h1 class="policy-hero-title">Privacy Policy</h1>
+  <p class="policy-hero-sub">Your discretion is valued. So is ours.</p>
+</section>
+
+<!-- Content -->
+<main class="policy-content">
+
+  <div class="policy-divider"></div>
+
+  <section class="policy-section">
+    <p class="policy-number">I</p>
+    <h2 class="policy-heading">Introduction</h2>
+    <p class="policy-text">
+      Old Money Georgia ("we," "our," or "the Brand") respects your privacy with the same care we bring to our craft. This policy explains how we collect, use, and protect your personal information when you visit <strong>oldmoney.ge</strong>. By using our website, you consent to the practices described herein.
+    </p>
+  </section>
+
+  <section class="policy-section">
+    <p class="policy-number">II</p>
+    <h2 class="policy-heading">Information We Collect</h2>
+    <p class="policy-text">
+      We collect only what is necessary and nothing more. When you join our waitlist, we collect your <strong>email address</strong> — provided voluntarily and with purpose. Through Google Analytics, we gather anonymous usage data: pages visited, time spent, device type, and approximate geographic location. This data contains no personally identifiable information. We also use essential cookies to ensure the website functions as intended.
+    </p>
+  </section>
+
+  <section class="policy-section">
+    <p class="policy-number">III</p>
+    <h2 class="policy-heading">How We Use Your Data</h2>
+    <p class="policy-text">
+      Your email address is used exclusively to notify you about our upcoming collections, brand updates, and launch announcements. Analytics data helps us understand how our audience interacts with the site, allowing us to refine the experience. We do not use your data for unsolicited marketing, nor do we share it with third parties for advertising purposes.
+    </p>
+  </section>
+
+  <section class="policy-section">
+    <p class="policy-number">IV</p>
+    <h2 class="policy-heading">Third-Party Services</h2>
+    <p class="policy-text">
+      We use <strong>Google Analytics</strong> to understand website traffic patterns. Google may collect and process data according to their own privacy policies. We use <strong>Netlify</strong> for hosting and form processing. Both services are industry-standard and maintain their own data protection practices. We do not sell, trade, or transfer your personal information to any other parties.
+    </p>
+  </section>
+
+  <section class="policy-section">
+    <p class="policy-number">V</p>
+    <h2 class="policy-heading">Cookies</h2>
+    <p class="policy-text">
+      Our website uses a minimal number of cookies: analytics cookies from Google to track anonymous usage statistics, and a functional cookie to remember your cookie consent preference. You may disable cookies through your browser settings at any time, though this may affect certain features of the website.
+    </p>
+  </section>
+
+  <section class="policy-section">
+    <p class="policy-number">VI</p>
+    <h2 class="policy-heading">Data Protection</h2>
+    <p class="policy-text">
+      We implement appropriate security measures to protect your personal information. Our website is served over HTTPS, ensuring encrypted communication between your browser and our servers. Access to collected data is restricted and handled with the discretion our brand demands.
+    </p>
+  </section>
+
+  <section class="policy-section">
+    <p class="policy-number">VII</p>
+    <h2 class="policy-heading">Your Rights</h2>
+    <p class="policy-text">
+      You have the right to request access to the personal data we hold about you, to request correction or deletion of your data, to unsubscribe from our communications at any time, and to inquire about our data practices. To exercise any of these rights, contact us at the address below.
+    </p>
+  </section>
+
+  <section class="policy-section">
+    <p class="policy-number">VIII</p>
+    <h2 class="policy-heading">Changes to This Policy</h2>
+    <p class="policy-text">
+      We may update this Privacy Policy from time to time to reflect changes in our practices or for legal and regulatory reasons. Any changes will be posted on this page with an updated effective date. We encourage you to review this policy periodically.
+    </p>
+    <p class="policy-text" style="margin-top: 20px; color: rgba(154,142,117,0.5); font-size: 14px;">
+      Effective date: May 2026
+    </p>
+  </section>
+
+  <!-- Contact Card -->
+  <div class="contact-card">
+    <p class="contact-label">Questions & Requests</p>
+    <a href="mailto:info@oldmoney.ge" class="contact-email">info@oldmoney.ge</a>
+    <p class="contact-address">Old Money Georgia<br>Batumi, Georgia</p>
+  </div>
+
+  <!-- Back to Home -->
+  <div style="text-align: center;">
+    <a href="/" class="back-link">
+      <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+      Return Home
+    </a>
+  </div>
+
+</main>
+
+<!-- Footer -->
+<footer>
+  <p class="footer-logo">OLD MONEY</p>
+  <p class="footer-copy" style="margin-top: 15px;">&copy; 2026 OLDMONEY.GE | info@oldmoney.ge &mdash; Georgia</p>
+</footer>
+
+<!-- ══════ Scripts ══════ -->
+
+<!-- Particles -->
+<script>
+(function() {
+  var container = document.getElementById('particles');
+  for (var i = 0; i < 10; i++) {
+    var p = document.createElement('div');
+    p.className = 'particle';
+    p.style.left = Math.random() * 100 + '%';
+    var size = (1 + Math.random() * 3) + 'px';
+    p.style.width = size;
+    p.style.height = size;
+    p.style.animationDuration = (12 + Math.random() * 20) + 's';
+    p.style.animationDelay = (Math.random() * 20) + 's';
+    container.appendChild(p);
+  }
+})();
+</script>
+
+<!-- Touch Ring -->
+<script>
+document.addEventListener('touchstart', function(e) {
+  var ring = document.createElement('div');
+  ring.className = 'touch-ring';
+  ring.style.left = e.touches[0].clientX + 'px';
+  ring.style.top = e.touches[0].clientY + 'px';
+  document.body.appendChild(ring);
+  setTimeout(function() { ring.remove(); }, 800);
+});
+</script>
+
+<!-- Scroll Reveal -->
+<script>
+(function() {
+  var sections = document.querySelectorAll('.policy-section');
+  var observer = new IntersectionObserver(function(entries) {
+    entries.forEach(function(entry) {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+      }
+    });
+  }, { threshold: 0.15 });
+  sections.forEach(function(el) { observer.observe(el); });
+})();
+</script>
+
+<!-- Background Mesh -->
+<script>
+(function() {
+  var canvas = document.getElementById('meshCanvas');
+  var ctx = canvas.getContext('2d');
+  var dpr = Math.min(window.devicePixelRatio || 1, 2);
+  var w, h;
+
+  function resize() {
+    w = canvas.offsetWidth;
+    h = canvas.offsetHeight;
+    canvas.width = w * dpr;
+    canvas.height = h * dpr;
+    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+  }
+
+  var blobs = [];
+  for (var i = 0; i < 5; i++) {
+    blobs.push({
+      x: 0.1 + Math.random() * 0.8,
+      y: 0.1 + Math.random() * 0.8,
+      vx: (Math.random() - 0.5) * 0.0003,
+      vy: (Math.random() - 0.5) * 0.0003,
+      radius: 0.25 + Math.random() * 0.2,
+      opacity: 0.025 + Math.random() * 0.025,
+      phase: Math.random() * Math.PI * 2,
+      pulseSpeed: 0.002 + Math.random() * 0.002
+    });
+  }
+
+  function draw() {
+    ctx.clearRect(0, 0, w, h);
+    for (var i = 0; i < blobs.length; i++) {
+      var b = blobs[i];
+      b.phase += b.pulseSpeed;
+      b.x += b.vx + Math.sin(b.phase * 0.7) * 0.0001;
+      b.y += b.vy + Math.cos(b.phase * 0.5) * 0.0001;
+      if (b.x < -0.15 || b.x > 1.15) b.vx *= -1;
+      if (b.y < -0.15 || b.y > 1.15) b.vy *= -1;
+      var cx = b.x * w;
+      var cy = b.y * h;
+      var r = b.radius * Math.max(w, h);
+      var pulse = 0.65 + 0.35 * Math.sin(b.phase);
+      var op = b.opacity * pulse;
+      var grad = ctx.createRadialGradient(cx, cy, 0, cx, cy, r);
+      grad.addColorStop(0, 'rgba(212,175,55,' + op + ')');
+      grad.addColorStop(0.35, 'rgba(200,165,40,' + (op * 0.5) + ')');
+      grad.addColorStop(0.65, 'rgba(184,150,12,' + (op * 0.15) + ')');
+      grad.addColorStop(1, 'rgba(184,150,12,0)');
+      ctx.fillStyle = grad;
+      ctx.fillRect(0, 0, w, h);
+    }
+    animId = requestAnimationFrame(draw);
+  }
+
+  var animId;
+  document.addEventListener('visibilitychange', function() {
+    if (document.hidden) { cancelAnimationFrame(animId); }
+    else { draw(); }
+  });
+
+  resize();
+  draw();
+  window.addEventListener('resize', resize);
+})();
+</script>
+
+<!-- Page Transition -->
+<div id="pageFade" style="
+  position: fixed;
+  inset: 0;
+  background: #0a0806;
+  z-index: 99999;
+  pointer-events: none;
+  opacity: 1;
+  transition: opacity 0.6s ease;
+"></div>
+
+<script>
+(function() {
+  var fade = document.getElementById('pageFade');
+  window.addEventListener('load', function() {
+    setTimeout(function() { fade.style.opacity = '0'; }, 100);
+  });
+
+  document.addEventListener('click', function(e) {
+    var link = e.target.closest('a');
+    if (!link) return;
+    var href = link.getAttribute('href');
+    if (!href) return;
+    if (href.startsWith('http') || href.startsWith('mailto') || href.startsWith('#') || link.getAttribute('target') === '_blank') return;
+    e.preventDefault();
+    fade.style.opacity = '1';
+    setTimeout(function() { window.location.href = href; }, 600);
+  });
+})();
+</script>
+
+<!-- Music Button (shared across pages) -->
+<audio id="bgMusic" loop preload="none">
+  <source src="music.mp3" type="audio/mpeg">
+</audio>
+
+<div id="musicBtn" style="
+  position: fixed;
+  bottom: 24px;
+  right: 24px;
+  width: 40px;
+  height: 40px;
+  border: 1px solid rgba(212,175,55,0.3);
+  background: rgba(10,8,6,0.85);
+  backdrop-filter: blur(10px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  z-index: 9999;
+  transition: border-color 0.4s, box-shadow 0.4s;
+">
+  <svg id="musicIcon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="rgba(154,142,117,0.5)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M9 18V5l12-2v13"/>
+    <circle cx="6" cy="18" r="3"/>
+    <circle cx="18" cy="16" r="3"/>
+  </svg>
+</div>
+
+<style>
+#musicBtn:active {
+  border-color: rgba(212,175,55,0.6);
+  box-shadow: 0 0 20px rgba(212,175,55,0.2);
+}
+#musicBtn.playing { border-color: rgba(212,175,55,0.5); }
+#musicBtn.playing::after {
+  content: '';
+  position: absolute;
+  inset: -4px;
+  border: 1px solid rgba(212,175,55,0.15);
+  animation: musicPulse 2s ease-in-out infinite;
+}
+@keyframes musicPulse {
+  0%, 100% { opacity: 0.3; transform: scale(1); }
+  50% { opacity: 0; transform: scale(1.3); }
+}
+</style>
+
+<script>
+(function() {
+  var audio = document.getElementById('bgMusic');
+  var btn = document.getElementById('musicBtn');
+  var icon = document.getElementById('musicIcon');
+  var playing = false;
+  var maxVol = 0.15;
+  var fadeDuration = 4000;
+  var stepTime = 50;
+  var stepSize = maxVol / (fadeDuration / stepTime);
+  var currentFade = null;
+
+  audio.volume = 0;
+
+  var savedTime = parseFloat(sessionStorage.getItem('omMusicTime') || '0');
+  if (savedTime > 0) audio.currentTime = savedTime;
+
+  setInterval(function() {
+    if (playing) sessionStorage.setItem('omMusicTime', audio.currentTime);
+  }, 1000);
+
+  function fadeIn() {
+    if (currentFade) clearInterval(currentFade);
+    var vol = audio.volume;
+    currentFade = setInterval(function() {
+      vol += stepSize;
+      if (vol >= maxVol) { vol = maxVol; clearInterval(currentFade); currentFade = null; }
+      audio.volume = vol;
+    }, stepTime);
+  }
+
+  function fadeOut(cb) {
+    if (currentFade) clearInterval(currentFade);
+    var vol = audio.volume;
+    var outStep = vol / (1500 / stepTime);
+    currentFade = setInterval(function() {
+      vol -= outStep;
+      if (vol <= 0) { vol = 0; audio.volume = 0; clearInterval(currentFade); currentFade = null; if (cb) cb(); return; }
+      audio.volume = vol;
+    }, stepTime);
+  }
+
+  btn.addEventListener('click', function() {
+    if (!playing) {
+      audio.play().then(function() {
+        fadeIn();
+        playing = true;
+        btn.classList.add('playing');
+        icon.style.stroke = '#d4af37';
+        localStorage.setItem('omMusic', 'on');
+      }).catch(function() {});
+    } else {
+      fadeOut(function() { audio.pause(); });
+      playing = false;
+      btn.classList.remove('playing');
+      icon.style.stroke = 'rgba(154,142,117,0.5)';
+      localStorage.setItem('omMusic', 'off');
+    }
+  });
+})();
+</script>
+
+</body>
+</html>
