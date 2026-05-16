@@ -682,7 +682,8 @@ html {
   </div>
 </section>
 
-<div class="philosophy">
+<div class="philosophy" id="philosophy">
+
   <div class="gold-rule reveal"></div>
   <p class="section-label reveal">Philosophy</p>
   <p class="section-text reveal">True elegance is never loud.<br>It is felt before it is seen.</p>
@@ -705,7 +706,8 @@ html {
     <p class="pillar-text">Not for everyone. By design.</p>
   </div>
 </div>
-<div class="waitlist">
+<div class="waitlist" id="waitlist">
+
   <div class="gold-rule reveal"></div>
   <p class="section-label reveal">Be The First</p>
   <p class="waitlist-text reveal">Our first collection is coming soon.<br>Leave your email to be notified.</p>
@@ -1696,6 +1698,450 @@ document.addEventListener('touchstart', function(e) {
 })();
 </script>
 
+<!-- ═══ OM Navigation Menu ═══ -->
+<style>
+/* ── Burger Button ── */
+.om-nav-burger {
+  position: fixed;
+  top: 22px;
+  left: 22px;
+  width: 48px;
+  height: 48px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  z-index: 10002;
+  -webkit-tap-highlight-color: transparent;
+  background: none;
+  border: none;
+  padding: 0;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.6s ease;
+}
+
+.om-nav-burger.visible {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.om-nav-burger-inner {
+  width: 26px;
+  height: 16px;
+  position: relative;
+}
+
+.om-nav-burger-line {
+  position: absolute;
+  left: 0;
+  height: 1px;
+  background: #d4af37;
+  transition: all 0.5s cubic-bezier(0.22, 1, 0.36, 1);
+  transform-origin: center;
+}
+
+.om-nav-burger-line:nth-child(1) { top: 0; width: 100%; }
+.om-nav-burger-line:nth-child(2) { top: 50%; width: 55%; }
+.om-nav-burger-line:nth-child(3) { top: 100%; width: 75%; }
+
+/* Burger → X */
+.om-nav-burger.active .om-nav-burger-line:nth-child(1) {
+  top: 50%;
+  transform: rotate(45deg);
+}
+.om-nav-burger.active .om-nav-burger-line:nth-child(2) {
+  opacity: 0;
+  transform: translateX(-12px);
+}
+.om-nav-burger.active .om-nav-burger-line:nth-child(3) {
+  top: 50%;
+  width: 100%;
+  transform: rotate(-45deg);
+}
+
+/* ── Fullscreen Overlay ── */
+.om-nav-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(10, 8, 6, 0.97);
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+  z-index: 10001;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.6s cubic-bezier(0.22, 1, 0.36, 1),
+              visibility 0s linear 0.6s;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+
+.om-nav-overlay.open {
+  opacity: 1;
+  visibility: visible;
+  transition: opacity 0.6s cubic-bezier(0.22, 1, 0.36, 1),
+              visibility 0s linear 0s;
+}
+
+/* Gold line top */
+.om-nav-overlay::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 0;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, #d4af37, transparent);
+  transition: width 0.8s cubic-bezier(0.22, 1, 0.36, 1) 0.15s;
+}
+
+.om-nav-overlay.open::before {
+  width: 70%;
+}
+
+/* Gold line bottom */
+.om-nav-overlay::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 0;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(212,175,55,0.3), transparent);
+  transition: width 0.8s cubic-bezier(0.22, 1, 0.36, 1) 0.3s;
+}
+
+.om-nav-overlay.open::after {
+  width: 40%;
+}
+
+/* ── Menu Content ── */
+.om-nav-content {
+  text-align: center;
+  position: relative;
+}
+
+.om-nav-logo {
+  font-family: 'Cinzel', serif;
+  font-size: 10px;
+  letter-spacing: 0.5em;
+  color: rgba(212, 175, 55, 0.3);
+  text-transform: uppercase;
+  margin-bottom: 48px;
+  opacity: 0;
+  transform: translateY(-12px);
+  transition: opacity 0.5s ease, transform 0.5s ease;
+}
+
+.om-nav-overlay.open .om-nav-logo {
+  opacity: 1;
+  transform: translateY(0);
+  transition-delay: 0.2s;
+}
+
+/* ── Menu Items ── */
+.om-nav-items {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.om-nav-item {
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+}
+
+.om-nav-link {
+  display: block;
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(26px, 5.5vw, 40px);
+  font-weight: 300;
+  font-style: italic;
+  color: rgba(232, 223, 200, 0.7);
+  text-decoration: none;
+  letter-spacing: 0.05em;
+  padding: 13px 30px;
+  position: relative;
+  opacity: 0;
+  transform: translateY(35px);
+  transition: opacity 0.5s ease,
+              transform 0.5s cubic-bezier(0.22, 1, 0.36, 1),
+              color 0.35s ease;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.om-nav-overlay.open .om-nav-link {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Stagger in */
+.om-nav-item:nth-child(1) .om-nav-link { transition-delay: 0.18s; }
+.om-nav-item:nth-child(2) .om-nav-link { transition-delay: 0.25s; }
+.om-nav-item:nth-child(3) .om-nav-link { transition-delay: 0.32s; }
+.om-nav-item:nth-child(4) .om-nav-link { transition-delay: 0.39s; }
+.om-nav-item:nth-child(5) .om-nav-link { transition-delay: 0.46s; }
+.om-nav-item:nth-child(6) .om-nav-link { transition-delay: 0.53s; }
+
+/* Stagger out (reverse) */
+.om-nav-overlay:not(.open) .om-nav-item:nth-child(1) .om-nav-link { transition-delay: 0.22s; }
+.om-nav-overlay:not(.open) .om-nav-item:nth-child(2) .om-nav-link { transition-delay: 0.18s; }
+.om-nav-overlay:not(.open) .om-nav-item:nth-child(3) .om-nav-link { transition-delay: 0.14s; }
+.om-nav-overlay:not(.open) .om-nav-item:nth-child(4) .om-nav-link { transition-delay: 0.10s; }
+.om-nav-overlay:not(.open) .om-nav-item:nth-child(5) .om-nav-link { transition-delay: 0.06s; }
+.om-nav-overlay:not(.open) .om-nav-item:nth-child(6) .om-nav-link { transition-delay: 0.02s; }
+
+/* Gold underline on active/hover */
+.om-nav-link::after {
+  content: '';
+  position: absolute;
+  bottom: 7px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 0;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, #d4af37, transparent);
+  transition: width 0.5s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.om-nav-link:active {
+  color: #d4af37;
+}
+
+.om-nav-link:active::after {
+  width: 45%;
+}
+
+/* Sub-label */
+.om-nav-link-sub {
+  display: block;
+  font-family: 'Cinzel', serif;
+  font-size: 8px;
+  font-style: normal;
+  letter-spacing: 0.35em;
+  color: rgba(154, 142, 117, 0.28);
+  text-transform: uppercase;
+  margin-top: 2px;
+}
+
+/* ── Decorative Corners ── */
+.om-nav-corner {
+  position: absolute;
+  width: 28px;
+  height: 28px;
+  opacity: 0;
+  transition: opacity 0.6s ease 0.45s;
+}
+
+.om-nav-overlay.open .om-nav-corner {
+  opacity: 0.12;
+}
+
+.om-nav-corner svg { width: 100%; height: 100%; }
+
+.om-nav-corner-tl { top: 55px; left: 28px; }
+.om-nav-corner-tr { top: 55px; right: 28px; transform: scaleX(-1); }
+.om-nav-corner-bl { bottom: 55px; left: 28px; transform: scaleY(-1); }
+.om-nav-corner-br { bottom: 55px; right: 28px; transform: scale(-1); }
+
+/* ── Footer inside menu ── */
+.om-nav-footer {
+  position: absolute;
+  bottom: 38px;
+  left: 0;
+  right: 0;
+  text-align: center;
+  opacity: 0;
+  transform: translateY(10px);
+  transition: opacity 0.5s ease, transform 0.5s ease;
+}
+
+.om-nav-overlay.open .om-nav-footer {
+  opacity: 1;
+  transform: translateY(0);
+  transition-delay: 0.58s;
+}
+
+.om-nav-footer-text {
+  font-family: 'Cinzel', serif;
+  font-size: 8px;
+  letter-spacing: 0.4em;
+  color: rgba(154, 142, 117, 0.2);
+  text-transform: uppercase;
+}
+
+.om-nav-socials {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  margin-top: 14px;
+}
+
+.om-nav-social {
+  color: rgba(154, 142, 117, 0.25);
+  transition: color 0.3s ease;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.om-nav-social:active {
+  color: #d4af37;
+}
+
+/* ── Desktop hover ── */
+@media (hover: hover) {
+  .om-nav-link:hover {
+    color: #d4af37;
+  }
+  .om-nav-link:hover::after {
+    width: 45%;
+  }
+  .om-nav-social:hover {
+    color: #d4af37;
+  }
+}
+</style>
+
+<!-- Burger Button -->
+<button class="om-nav-burger" id="omNavBurger" aria-label="Open menu">
+  <div class="om-nav-burger-inner">
+    <span class="om-nav-burger-line"></span>
+    <span class="om-nav-burger-line"></span>
+    <span class="om-nav-burger-line"></span>
+  </div>
+</button>
+
+<!-- Fullscreen Menu Overlay -->
+<div class="om-nav-overlay" id="omNavOverlay">
+
+  <!-- Decorative corners -->
+  <div class="om-nav-corner om-nav-corner-tl"><svg viewBox="0 0 30 30" fill="none"><path d="M1 29V1H29" stroke="#d4af37" stroke-width="0.5"/></svg></div>
+  <div class="om-nav-corner om-nav-corner-tr"><svg viewBox="0 0 30 30" fill="none"><path d="M1 29V1H29" stroke="#d4af37" stroke-width="0.5"/></svg></div>
+  <div class="om-nav-corner om-nav-corner-bl"><svg viewBox="0 0 30 30" fill="none"><path d="M1 29V1H29" stroke="#d4af37" stroke-width="0.5"/></svg></div>
+  <div class="om-nav-corner om-nav-corner-br"><svg viewBox="0 0 30 30" fill="none"><path d="M1 29V1H29" stroke="#d4af37" stroke-width="0.5"/></svg></div>
+
+  <div class="om-nav-content">
+    <p class="om-nav-logo">Old Money Georgia</p>
+
+    <ul class="om-nav-items">
+      <li class="om-nav-item">
+        <a href="#philosophy" class="om-nav-link om-nav-scroll">The Brand</a>
+      </li>
+      <li class="om-nav-item">
+        <a href="about.html" class="om-nav-link">Our Story</a>
+      </li>
+      <li class="om-nav-item">
+        <a href="gazette.html" class="om-nav-link">The Gazette</a>
+      </li>
+      <li class="om-nav-item">
+        <a href="#waitlist" class="om-nav-link om-nav-scroll">Waitlist
+          <span class="om-nav-link-sub">Be the first</span>
+        </a>
+      </li>
+      <li class="om-nav-item">
+        <a href="#contact" class="om-nav-link" id="omNavContact">Contact
+          <span class="om-nav-link-sub">Client advisor</span>
+        </a>
+      </li>
+      <li class="om-nav-item">
+        <a href="https://www.instagram.com/oldmoney.ge" target="_blank" class="om-nav-link">Instagram
+          <span class="om-nav-link-sub">@oldmoney.ge</span>
+        </a>
+      </li>
+    </ul>
+  </div>
+
+  <!-- Footer inside menu -->
+  <div class="om-nav-footer">
+    <p class="om-nav-footer-text">Est. 2026 &middot; Batumi, Georgia</p>
+    <div class="om-nav-socials">
+      <a href="https://www.instagram.com/oldmoney.ge" target="_blank" class="om-nav-social" aria-label="Instagram">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/></svg>
+      </a>
+      <a href="https://www.tiktok.com/@oldmoney.ge" target="_blank" class="om-nav-social" aria-label="TikTok">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M9 12a4 4 0 1 0 4 4V4a5 5 0 0 0 5 5"/></svg>
+      </a>
+      <a href="https://www.facebook.com/share/1Xt7Q9SiAX/" target="_blank" class="om-nav-social" aria-label="Facebook">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg>
+      </a>
+    </div>
+  </div>
+</div>
+
+<script>
+(function() {
+  var burger = document.getElementById('omNavBurger');
+  var overlay = document.getElementById('omNavOverlay');
+  var contactLink = document.getElementById('omNavContact');
+  var scrollLinks = document.querySelectorAll('.om-nav-scroll');
+  var isOpen = false;
+
+  // Show burger after splash disappears
+  setTimeout(function() {
+    burger.classList.add('visible');
+  }, 2800);
+
+  function openMenu() {
+    isOpen = true;
+    burger.classList.add('active');
+    overlay.classList.add('open');
+    document.body.style.overflow = 'hidden';
+  }
+
+  function closeMenu(callback) {
+    isOpen = false;
+    burger.classList.remove('active');
+    overlay.classList.remove('open');
+    document.body.style.overflow = '';
+    if (callback) {
+      setTimeout(callback, 650);
+    }
+  }
+
+  burger.addEventListener('click', function() {
+    if (!isOpen) {
+      openMenu();
+    } else {
+      closeMenu();
+    }
+  });
+
+  // Scroll links — close menu first, then smooth scroll
+  scrollLinks.forEach(function(link) {
+    link.addEventListener('click', function(e) {
+      e.preventDefault();
+      var targetId = this.getAttribute('href').substring(1);
+      closeMenu(function() {
+        var target = document.getElementById(targetId);
+        if (target) {
+          target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+      });
+    });
+  });
+
+  // Contact — close menu, then open OM Chat widget
+  contactLink.addEventListener('click', function(e) {
+    e.preventDefault();
+    closeMenu(function() {
+      var chatBtn = document.getElementById('omChatBtn');
+      if (chatBtn) chatBtn.click();
+    });
+  });
+
+  // ESC to close
+  document.addEventListener('keydown', function(e) {
+    if (e.key === 'Escape' && isOpen) {
+      closeMenu();
+    }
+  });
+})();
+</script>
 
 </body>
 </html>
