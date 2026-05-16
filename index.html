@@ -50,7 +50,8 @@
 </script>
 
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+
   <!-- Google tag (gtag.js) -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-BV3T1X57VX"></script>
 <script>
@@ -73,6 +74,8 @@ background: #0a0806;
 font-family: ‘Cormorant Garamond’, serif;
 color: #e8dfc8;
 overflow-x: hidden;
+padding-top: env(safe-area-inset-top);
+padding-bottom: env(safe-area-inset-bottom);
 
 }
 
@@ -528,25 +531,26 @@ text-transform: uppercase;
 }
 .cookie-banner {
   position: fixed;
-  bottom: 80px;
-  left: 50%;
-  transform: translateX(-50%);
+  bottom: 0;
+  left: 0;
+  right: 0;
   background: rgba(10,8,6,0.97);
-  border: 1px solid rgba(212,175,55,0.15);
-  padding: 12px 18px;
+  border-top: 1px solid rgba(212,175,55,0.15);
+  padding: 14px 20px;
   display: flex;
   align-items: center;
+  justify-content: center;
   gap: 14px;
   z-index: 9997;
   opacity: 0;
   animation: cookieFadeIn 0.8s ease 3.5s forwards;
   backdrop-filter: blur(10px);
-  width: auto;
-  max-width: 320px;
-  flex-direction: column;
+  width: 100%;
+  max-width: 100%;
+  flex-direction: row;
   text-align: center;
-
 }
+
 
 
 .cookie-text {
@@ -593,9 +597,10 @@ text-transform: uppercase;
 
 
 @keyframes cookieFadeIn {
-  0% { opacity: 0; transform: translateX(-50%) translateY(20px); }
-  100% { opacity: 1; transform: translateX(-50%) translateY(0); }
+  0% { opacity: 0; transform: translateY(20px); }
+  100% { opacity: 1; transform: translateY(0); }
 }
+
 
 html {
   scroll-behavior: smooth;
@@ -722,6 +727,29 @@ html {
   <p id="waitlistSuccess" style="display:none; color:#d4af37; font-style:italic; font-size:15px; margin-top:20px; letter-spacing:0.05em;">Welcome to the list.</p>
 
 </div>
+<script>
+(function() {
+  var form = document.querySelector('.waitlist-form');
+  if (!form) return;
+  form.addEventListener('submit', function(e) {
+    e.preventDefault();
+    var data = new FormData(form);
+    var btn = form.querySelector('.waitlist-btn');
+    btn.textContent = '...';
+    fetch('/', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+      body: new URLSearchParams(data).toString()
+    }).then(function() {
+      form.style.display = 'none';
+      document.getElementById('waitlistSuccess').style.display = 'block';
+    }).catch(function() {
+      form.style.display = 'none';
+      document.getElementById('waitlistSuccess').style.display = 'block';
+    });
+  });
+})();
+</script>
 
 <div class="instagram">
   <h2 class="ig-title reveal">The Collection</h2>
@@ -963,7 +991,7 @@ document.addEventListener('touchstart', function(e) {
   align-items: center;
   justify-content: center;
   cursor: pointer;
-  z-index: 9999;
+  z-index: 9996;
   transition: border-color 0.4s, box-shadow 0.4s;
   box-shadow: 0 0 30px rgba(212,175,55,0.06);
 ">
@@ -1196,7 +1224,7 @@ document.addEventListener('touchstart', function(e) {
   align-items: center;
   justify-content: center;
   cursor: pointer;
-  z-index: 9998;
+  z-index: 9996;
   transition: all 0.5s cubic-bezier(0.22, 1, 0.36, 1);
   font-family: 'Cinzel', serif;
   font-size: 12px;
@@ -1713,7 +1741,10 @@ document.addEventListener('touchstart', function(e) {
   cursor: pointer;
   z-index: 10002;
   -webkit-tap-highlight-color: transparent;
-  background: none;
+  background: rgba(10, 8, 6, 0.4);
+  border-radius: 50%;
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
   border: none;
   padding: 0;
   opacity: 0;
@@ -2083,12 +2114,16 @@ document.addEventListener('touchstart', function(e) {
 
   // Show burger after splash disappears
   setTimeout(function() {
-    burger.classList.add('visible');
-  }, 2800);
+  burger.classList.add('visible');
+  var tlCorner = document.querySelector('.corner.tl');
+  if (tlCorner) tlCorner.style.opacity = '0';
+}, 2800);
+
 
   function openMenu() {
     isOpen = true;
     burger.classList.add('active');
+    burger.setAttribute('aria-expanded', 'true');
     overlay.classList.add('open');
     document.body.style.overflow = 'hidden';
   }
@@ -2096,6 +2131,7 @@ document.addEventListener('touchstart', function(e) {
   function closeMenu(callback) {
     isOpen = false;
     burger.classList.remove('active');
+    burger.setAttribute('aria-expanded', 'false');
     overlay.classList.remove('open');
     document.body.style.overflow = '';
     if (callback) {
@@ -2131,6 +2167,21 @@ document.addEventListener('touchstart', function(e) {
     closeMenu(function() {
       var chatBtn = document.getElementById('omChatBtn');
       if (chatBtn) chatBtn.click();
+    });
+  });
+  // Page links — close menu, fade, then navigate
+  var pageLinks = overlay.querySelectorAll('.om-nav-link:not(.om-nav-scroll):not([target="_blank"]):not(#omNavContact)');
+  pageLinks.forEach(function(link) {
+    link.addEventListener('click', function(e) {
+      e.preventDefault();
+      var href = this.getAttribute('href');
+      var fade = document.getElementById('pageFade');
+      closeMenu(function() {
+        if (fade) fade.style.opacity = '1';
+        setTimeout(function() {
+          window.location.href = href;
+        }, 600);
+      });
     });
   });
 
