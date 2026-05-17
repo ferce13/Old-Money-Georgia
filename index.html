@@ -94,14 +94,15 @@ pointer-events: none;
 .br { bottom: 20px; right: 20px; transform: scale(-1); }
 
 .hero {
-min-height: 100vh;
+min-height: 100svh;
+min-height: 100vh; /* fallback */
 margin-top: -50px;
 padding-top: 50px;
 display: flex;
 flex-direction: column;
 align-items: center;
 justify-content: flex-end;
-padding-bottom: 160px;
+padding-bottom: 110px;
 position: relative;
 background: #0a0806;
 overflow: hidden;
@@ -624,7 +625,7 @@ html {
 
 @media (max-height: 700px) {
   .hero {
-    padding-bottom: 80px;
+    padding-bottom: 60px;
   }
   .tagline {
     margin-bottom: 20px;
@@ -804,7 +805,7 @@ html {
 <script>
 (function() {
   var container = document.getElementById('particles');
-  for (var i = 0; i < 12; i++) {
+  for (var i = 0; i < 8; i++) {
     var p = document.createElement('div');
     p.className = 'particle';
     p.style.left = Math.random() * 100 + '%';
@@ -979,7 +980,7 @@ document.addEventListener('touchstart', function(e) {
 
 <div id="musicBtn" style="
   position: fixed;
-  bottom: 24px;
+  bottom: calc(24px + env(safe-area-inset-bottom));
   right: 24px;
   width: 52px;
   height: 52px;
@@ -1212,7 +1213,7 @@ document.addEventListener('touchstart', function(e) {
 /* Chat Button — Elegant Circle */
 .om-chat-btn {
   position: fixed;
-  bottom: 84px;
+  bottom: calc(84px + env(safe-area-inset-bottom));
   right: 24px;
   width: 52px;
   height: 52px;
@@ -1731,7 +1732,7 @@ document.addEventListener('touchstart', function(e) {
 /* ── Burger Button ── */
 .om-nav-burger {
   position: fixed;
-  top: 22px;
+  top: calc(22px + env(safe-area-inset-top));
   left: 22px;
   width: 48px;
   height: 48px;
