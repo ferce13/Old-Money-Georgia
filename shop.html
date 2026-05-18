@@ -1389,6 +1389,12 @@ window.addEventListener('load', function() {
     document.getElementById('pageFade').style.opacity = '0';
   }, 100);
 });
+window.addEventListener('pageshow', function(e) {
+  if (e.persisted) {
+    document.getElementById('pageFade').style.opacity = '0';
+  }
+});
+
 
 // ═══ PAGE FADE OUT ON LINK CLICK ═══
 document.addEventListener('click', function(e) {
