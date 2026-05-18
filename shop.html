@@ -143,7 +143,7 @@ body {
 .om-header {
   position: fixed;
   top: 0; left: 0; right: 0;
-  z-index: 1000;
+  z-index: 10002;
   padding: calc(18px + env(safe-area-inset-top)) 24px 18px;
   display: flex;
   align-items: center;
@@ -252,7 +252,7 @@ body {
   background: rgba(10,8,6,0.97);
   backdrop-filter: blur(24px);
   -webkit-backdrop-filter: blur(24px);
-  z-index: 999;
+  z-index: 10001;
   opacity: 0;
   visibility: hidden;
   transition: opacity 0.6s var(--ease-luxury), visibility 0s linear 0.6s;
@@ -1309,7 +1309,7 @@ body.locked {
       <span class="cart-subtotal-value" id="cartSubtotal">₾0</span>
     </div>
     <p class="cart-shipping-note">Tax included. Shipping calculated at checkout.</p>
-    <button class="cart-checkout-btn" id="cartCheckoutBtn">Proceed to Checkout</button>
+    <button class="cart-checkout-btn" id="cartCheckoutBtn">Proceed to Pre-Order</button>
     <button class="cart-continue" id="cartContinue">Continue shopping</button>
   </div>
 </div>
@@ -1851,6 +1851,182 @@ document.addEventListener('touchstart', function(e) {
       document.getElementById('comingSoonSuccess').style.display = 'block';
     });
   });
+})();
+</script>
+
+<!-- ═══ Background Music ═══ -->
+<audio id="bgMusic" loop preload="none">
+  <source src="music.mp3" type="audio/mpeg">
+</audio>
+
+<div id="musicBtn" style="
+  position: fixed;
+  bottom: calc(24px + env(safe-area-inset-bottom));
+  right: 24px;
+  width: 52px;
+  height: 52px;
+  border: 1px solid rgba(212,175,55,0.35);
+  border-radius: 50%;
+  background: rgba(10,8,6,0.92);
+  backdrop-filter: blur(12px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  z-index: 9996;
+  transition: border-color 0.4s, box-shadow 0.4s;
+  box-shadow: 0 0 30px rgba(212,175,55,0.06);
+  -webkit-tap-highlight-color: transparent;
+">
+  <svg id="musicIcon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="rgba(154,142,117,0.5)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M9 18V5l12-2v13"/>
+    <circle cx="6" cy="18" r="3"/>
+    <circle cx="18" cy="16" r="3"/>
+  </svg>
+</div>
+
+<style>
+#musicBtn:active { border-color: rgba(212,175,55,0.6); box-shadow: 0 0 20px rgba(212,175,55,0.2); }
+#musicBtn.playing { border-color: rgba(212,175,55,0.5); }
+#musicBtn.playing::after { content:''; position:absolute; inset:-4px; border:1px solid rgba(212,175,55,0.15); border-radius:50%; animation: musicPulse 2s ease-in-out infinite; }
+@keyframes musicPulse { 0%,100%{opacity:0.3;transform:scale(1)} 50%{opacity:0;transform:scale(1.3)} }
+
+.om-chat-btn{position:fixed;bottom:calc(84px + env(safe-area-inset-bottom));right:24px;width:52px;height:52px;border:1px solid rgba(212,175,55,0.35);border-radius:50%;background:rgba(10,8,6,0.92);backdrop-filter:blur(12px);display:flex;align-items:center;justify-content:center;cursor:pointer;z-index:9996;transition:all 0.5s cubic-bezier(0.22,1,0.36,1);font-family:'Cinzel',serif;font-size:12px;letter-spacing:2px;color:#d4af37;-webkit-tap-highlight-color:transparent;box-shadow:0 0 30px rgba(212,175,55,0.06)}
+.om-chat-btn::before{content:'';position:absolute;inset:-5px;border:1px solid rgba(212,175,55,0.1);border-radius:50%;animation:omBtnPulse 3s ease-in-out infinite}
+@keyframes omBtnPulse{0%,100%{transform:scale(1);opacity:0.4}50%{transform:scale(1.15);opacity:0}}
+.om-chat-btn:active{border-color:rgba(212,175,55,0.7);box-shadow:0 0 35px rgba(212,175,55,0.2);transform:scale(0.92)}
+.om-chat-btn.open{transform:scale(0) rotate(90deg);opacity:0;pointer-events:none}
+
+.om-chat-overlay{position:fixed;inset:0;background:rgba(10,8,6,0.7);backdrop-filter:blur(6px);z-index:9999;opacity:0;pointer-events:none;transition:opacity 0.5s cubic-bezier(0.22,1,0.36,1)}
+.om-chat-overlay.open{opacity:1;pointer-events:auto}
+
+.om-chat-window{position:fixed;bottom:0;left:0;right:0;max-height:88vh;background:#0a0806;border-top:1px solid rgba(212,175,55,0.12);z-index:10000;transform:translateY(105%);transition:transform 0.6s cubic-bezier(0.22,1,0.36,1);display:flex;flex-direction:column;overflow:hidden}
+.om-chat-window.open{transform:translateY(0)}
+@media(min-width:500px){.om-chat-window{bottom:24px;right:24px;width:380px;max-height:540px;border:1px solid rgba(212,175,55,0.12);transform:translateY(20px) scale(0.95);opacity:0;transition:transform 0.5s cubic-bezier(0.22,1,0.36,1),opacity 0.5s ease}.om-chat-window.open{transform:translateY(0) scale(1);opacity:1}}
+
+.om-chat-window::before{content:'';position:absolute;top:0;left:50%;transform:translateX(-50%);width:0;height:1px;background:linear-gradient(90deg,transparent,#d4af37,transparent);transition:width 0.8s cubic-bezier(0.22,1,0.36,1) 0.2s}
+.om-chat-window.open::before{width:80%}
+
+.om-chat-header{display:flex;align-items:center;justify-content:space-between;padding:22px 24px 18px;border-bottom:1px solid rgba(212,175,55,0.06);opacity:0;transform:translateY(-8px);transition:opacity 0.5s ease 0.15s,transform 0.5s ease 0.15s}
+.om-chat-window.open .om-chat-header{opacity:1;transform:translateY(0)}
+.om-chat-title{display:flex;flex-direction:column;gap:3px}
+.om-chat-logo{font-family:'Cinzel',serif;font-size:15px;letter-spacing:4px;color:#d4af37}
+.om-chat-label{font-family:'Cormorant Garamond',serif;font-size:12px;font-style:italic;color:rgba(154,142,117,0.5);letter-spacing:0.08em}
+.om-chat-close{width:36px;height:36px;display:flex;align-items:center;justify-content:center;cursor:pointer;color:rgba(154,142,117,0.4);transition:color 0.3s,transform 0.3s;background:none;border:none;-webkit-tap-highlight-color:transparent}
+.om-chat-close:active{color:#d4af37;transform:rotate(90deg)}
+
+.om-chat-body{flex:1;padding:24px 24px 28px;overflow-y:auto;-webkit-overflow-scrolling:touch}
+.om-chat-welcome,.om-chat-field,.om-chat-textarea,.om-chat-privacy,.om-chat-send{opacity:0;transform:translateY(12px);transition:opacity 0.4s ease,transform 0.4s ease}
+.om-chat-window.open .om-chat-welcome{transition-delay:0.25s;opacity:1;transform:translateY(0)}
+.om-chat-window.open .om-chat-field{transition-delay:0.32s;opacity:1;transform:translateY(0)}
+.om-chat-window.open .om-chat-textarea{transition-delay:0.39s;opacity:1;transform:translateY(0)}
+.om-chat-window.open .om-chat-privacy{transition-delay:0.46s;opacity:1;transform:translateY(0)}
+.om-chat-window.open .om-chat-send{transition-delay:0.53s;opacity:1;transform:translateY(0)}
+
+.om-chat-welcome{font-family:'Cormorant Garamond',serif;font-size:17px;font-style:italic;font-weight:300;color:rgba(232,223,200,0.55);line-height:1.8;margin-bottom:28px;text-align:center}
+.om-chat-field{width:100%;padding:13px 18px;font-family:'Cormorant Garamond',serif;font-size:15px;color:#e8dfc8;background:transparent;border:1px solid rgba(212,175,55,0.18);letter-spacing:0.04em;outline:none;transition:border-color 0.4s ease;margin-bottom:14px;-webkit-appearance:none;border-radius:0}
+.om-chat-field::placeholder{color:rgba(154,142,117,0.4);font-style:italic}
+.om-chat-field:focus{border-color:rgba(212,175,55,0.5)}
+.om-chat-textarea{width:100%;padding:13px 18px;font-family:'Cormorant Garamond',serif;font-size:15px;color:#e8dfc8;background:transparent;border:1px solid rgba(212,175,55,0.18);letter-spacing:0.04em;outline:none;transition:border-color 0.4s ease;resize:none;height:90px;margin-bottom:14px;-webkit-appearance:none;border-radius:0}
+.om-chat-textarea::placeholder{color:rgba(154,142,117,0.4);font-style:italic}
+.om-chat-textarea:focus{border-color:rgba(212,175,55,0.5)}
+
+.om-chat-privacy{display:flex;align-items:flex-start;gap:10px;margin-bottom:20px;cursor:pointer;-webkit-tap-highlight-color:transparent}
+.om-chat-privacy input{display:none}
+.om-chat-check{width:16px;height:16px;min-width:16px;border:1px solid rgba(212,175,55,0.25);border-radius:50%;margin-top:1px;display:flex;align-items:center;justify-content:center;transition:all 0.4s ease}
+.om-chat-check svg{opacity:0;transform:scale(0.5);transition:all 0.3s ease}
+.om-chat-privacy input:checked~.om-chat-check{border-color:#d4af37;background:rgba(212,175,55,0.15)}
+.om-chat-privacy input:checked~.om-chat-check svg{opacity:1;transform:scale(1)}
+.om-chat-privacy-text{font-family:'Cormorant Garamond',serif;font-size:12px;color:rgba(154,142,117,0.45);line-height:1.6}
+.om-chat-privacy-text a{color:rgba(212,175,55,0.5);text-decoration:none;border-bottom:1px solid rgba(212,175,55,0.15)}
+
+.om-chat-send{width:100%;font-family:'Cinzel',serif;font-size:10px;letter-spacing:0.3em;text-transform:uppercase;color:#0a0806;background:linear-gradient(135deg,#b8960c,#d4af37,#b8960c);border:none;padding:16px;cursor:pointer;position:relative;overflow:hidden;-webkit-tap-highlight-color:transparent}
+.om-chat-send:disabled{opacity:0.35;cursor:default}
+.om-chat-send::after{content:'';position:absolute;top:0;left:-100%;width:60%;height:100%;background:linear-gradient(90deg,transparent,rgba(255,255,255,0.3),transparent);animation:shimmer 3s ease-in-out infinite}
+
+.om-chat-success{text-align:center;padding:50px 20px;display:none}
+.om-chat-success.show{display:block;animation:omSuccessFade 0.6s ease forwards}
+@keyframes omSuccessFade{0%{opacity:0;transform:translateY(10px)}100%{opacity:1;transform:translateY(0)}}
+.om-chat-success-line{width:0;height:1px;background:linear-gradient(90deg,transparent,#d4af37,transparent);margin:0 auto 28px;animation:omLineGrow 0.8s ease 0.2s forwards}
+@keyframes omLineGrow{0%{width:0}100%{width:50px}}
+.om-chat-success-title{font-family:'Cinzel',serif;font-size:13px;letter-spacing:0.25em;color:#d4af37;margin-bottom:14px}
+.om-chat-success-text{font-family:'Cormorant Garamond',serif;font-size:15px;font-style:italic;color:rgba(232,223,200,0.45);line-height:1.8}
+.om-chat-form.hidden{display:none}
+</style>
+
+<!-- OM Chat Button -->
+<div class="om-chat-btn" id="omChatBtn">OM</div>
+<div class="om-chat-overlay" id="omChatOverlay"></div>
+<div class="om-chat-window" id="omChatWindow">
+  <div class="om-chat-header">
+    <div class="om-chat-title">
+      <span class="om-chat-logo">OLD MONEY</span>
+      <span class="om-chat-label">Client Advisor</span>
+    </div>
+    <button class="om-chat-close" id="omChatClose">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M18 6L6 18M6 6l12 12"/></svg>
+    </button>
+  </div>
+  <div class="om-chat-body">
+    <div class="om-chat-form" id="omChatForm">
+      <p class="om-chat-welcome">How may we assist you?<br><span style="font-size:14px;color:rgba(154,142,117,0.4);">We typically respond within a few hours.</span></p>
+      <form name="om-chat-shop" method="POST" data-netlify="true" netlify-honeypot="bot-field" action="/" id="omChatFormEl">
+        <input type="hidden" name="form-name" value="om-chat-shop">
+        <p style="display:none"><input name="bot-field"></p>
+        <input type="email" name="email" placeholder="Your email" required class="om-chat-field">
+        <textarea name="message" placeholder="Your message..." required class="om-chat-textarea"></textarea>
+        <label class="om-chat-privacy">
+          <input type="checkbox" id="omChatAgree" required>
+          <span class="om-chat-check"><svg width="8" height="8" viewBox="0 0 24 24" fill="none" stroke="#d4af37" stroke-width="3"><path d="M20 6L9 17l-5-5"/></svg></span>
+          <span class="om-chat-privacy-text">I agree to the <a href="privacy.html" target="_blank">Privacy Policy</a></span>
+        </label>
+        <button type="submit" class="om-chat-send">Send Message</button>
+      </form>
+    </div>
+    <div class="om-chat-success" id="omChatSuccess">
+      <div class="om-chat-success-line"></div>
+      <p class="om-chat-success-title">Message Received</p>
+      <p class="om-chat-success-text">Thank you for reaching out.<br>We'll respond to your email shortly.</p>
+    </div>
+  </div>
+</div>
+
+<script>
+// ═══ OM CHAT ═══
+(function(){
+  var btn=document.getElementById('omChatBtn'),overlay=document.getElementById('omChatOverlay'),win=document.getElementById('omChatWindow'),closeBtn=document.getElementById('omChatClose'),form=document.getElementById('omChatFormEl'),formWrap=document.getElementById('omChatForm'),success=document.getElementById('omChatSuccess');
+  function openChat(){btn.classList.add('open');overlay.classList.add('open');win.classList.add('open');document.body.style.overflow='hidden'}
+  function closeChat(){win.classList.remove('open');overlay.classList.remove('open');btn.classList.remove('open');document.body.style.overflow=''}
+  btn.addEventListener('click',openChat);overlay.addEventListener('click',closeChat);closeBtn.addEventListener('click',closeChat);
+  form.addEventListener('submit',function(e){
+    e.preventDefault();var data=new FormData(form);
+    fetch('/',{method:'POST',headers:{'Content-Type':'application/x-www-form-urlencoded'},body:new URLSearchParams(data).toString()}).then(function(){
+      formWrap.classList.add('hidden');success.classList.add('show');
+      setTimeout(function(){closeChat();setTimeout(function(){formWrap.classList.remove('hidden');success.classList.remove('show');form.reset()},600)},3500);
+    }).catch(function(){
+      formWrap.classList.add('hidden');success.classList.add('show');
+      setTimeout(function(){closeChat();setTimeout(function(){formWrap.classList.remove('hidden');success.classList.remove('show');form.reset()},600)},3500);
+    });
+  });
+})();
+</script>
+
+<script>
+// ═══ MUSIC PLAYER ═══
+(function(){
+  var audio=document.getElementById('bgMusic'),btn=document.getElementById('musicBtn'),icon=document.getElementById('musicIcon'),playing=false,maxVol=0.15,stepTime=50,stepSize=maxVol/(4000/stepTime),currentFade=null;
+  audio.volume=0;
+  var savedTime=parseFloat(sessionStorage.getItem('omMusicTime')||'0');
+  if(savedTime>0)audio.currentTime=savedTime;
+  setInterval(function(){if(playing)sessionStorage.setItem('omMusicTime',audio.currentTime)},1000);
+  function fadeIn(){if(currentFade)clearInterval(currentFade);var vol=audio.volume;currentFade=setInterval(function(){vol+=stepSize;if(vol>=maxVol){vol=maxVol;clearInterval(currentFade);currentFade=null}audio.volume=vol},stepTime)}
+  function fadeOut(cb){if(currentFade)clearInterval(currentFade);var vol=audio.volume,outStep=vol/(1500/stepTime);currentFade=setInterval(function(){vol-=outStep;if(vol<=0){vol=0;audio.volume=0;clearInterval(currentFade);currentFade=null;if(cb)cb();return}audio.volume=vol},stepTime)}
+  btn.addEventListener('click',function(){
+    if(!playing){audio.play().then(function(){fadeIn();playing=true;btn.classList.add('playing');icon.style.stroke='#d4af37';localStorage.setItem('omMusic','on')}).catch(function(){})}
+    else{fadeOut(function(){audio.pause()});playing=false;btn.classList.remove('playing');icon.style.stroke='rgba(154,142,117,0.5)';localStorage.setItem('omMusic','off')}
+  });
+  // Auto-resume if was playing on other page
+  if(localStorage.getItem('omMusic')==='on'){audio.play().then(function(){fadeIn();playing=true;btn.classList.add('playing');icon.style.stroke='#d4af37'}).catch(function(){})}
 })();
 </script>
 
