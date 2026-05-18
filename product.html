@@ -62,6 +62,43 @@ body {
   transition: opacity 0.8s var(--ease-luxury);
 }
 
+/* ═══ PARTICLES ═══ */
+.particles-container {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+  overflow: hidden;
+}
+.particle {
+  position: absolute;
+  width: 3px; height: 3px;
+  background: var(--gold);
+  border-radius: 50%;
+  opacity: 0;
+  animation: particleFloat linear infinite;
+}
+@keyframes particleFloat {
+  0% { opacity: 0; transform: translateY(100vh) scale(0); }
+  10% { opacity: 0.4; }
+  90% { opacity: 0.1; }
+  100% { opacity: 0; transform: translateY(-10vh) scale(1); }
+}
+
+/* ═══ CORNER ORNAMENTS ═══ */
+.corner {
+  position: fixed;
+  width: 60px; height: 60px;
+  opacity: 0.25;
+  z-index: 100;
+  pointer-events: none;
+}
+.corner svg { width: 100%; height: 100%; }
+.tl { top: 20px; left: 20px; }
+.tr { top: 20px; right: 20px; transform: scaleX(-1); }
+.bl { bottom: 20px; left: 20px; transform: scaleY(-1); }
+.br { bottom: 20px; right: 20px; transform: scale(-1); }
+
 /* ═══ HEADER ═══ */
 .product-header {
   position: fixed;
@@ -367,7 +404,6 @@ body {
 
 .product-gallery-slide img.loaded { opacity: 1; }
 
-/* Gallery dots */
 .product-gallery-dots {
   position: absolute;
   bottom: 20px; left: 50%;
@@ -487,7 +523,6 @@ body {
   margin-bottom: 36px;
 }
 
-/* ═══ SIZE SELECTOR ═══ */
 .size-label {
   font-family: var(--font-display);
   font-size: 9px;
@@ -589,7 +624,7 @@ body {
 
 .add-to-cart-btn.added::after { display: none; }
 
-/* Touch ring */
+/* ═══ TOUCH RING ═══ */
 .touch-ring {
   position: fixed;
   pointer-events: none;
@@ -619,6 +654,18 @@ body.locked { overflow: hidden; position: fixed; width: 100%; }
 <body>
 
 <div id="pageFade"></div>
+
+<!-- Ambient Canvas -->
+<canvas id="meshCanvas" style="position:fixed;top:0;left:0;width:100%;height:100%;pointer-events:none;z-index:0;"></canvas>
+
+<!-- Particles -->
+<div class="particles-container" id="particles"></div>
+
+<!-- Corner Ornaments -->
+<div class="corner tl"><svg viewBox="0 0 60 60" fill="none"><path d="M1 59V1H59" stroke="#d4af37" stroke-width="0.5"/></svg></div>
+<div class="corner tr"><svg viewBox="0 0 60 60" fill="none"><path d="M1 59V1H59" stroke="#d4af37" stroke-width="0.5"/></svg></div>
+<div class="corner bl"><svg viewBox="0 0 60 60" fill="none"><path d="M1 59V1H59" stroke="#d4af37" stroke-width="0.5"/></svg></div>
+<div class="corner br"><svg viewBox="0 0 60 60" fill="none"><path d="M1 59V1H59" stroke="#d4af37" stroke-width="0.5"/></svg></div>
 
 <!-- ═══ HEADER ═══ -->
 <header class="product-header">
@@ -671,24 +718,19 @@ body.locked { overflow: hidden; position: fixed; width: 100%; }
 
 <!-- ═══ PRODUCT PAGE ═══ -->
 <main class="product-page" id="productPage">
-
-  <!-- Gallery -->
   <div class="product-gallery">
     <div class="product-gallery-scroll" id="galleryScroll"></div>
     <div class="product-gallery-dots" id="galleryDots"></div>
   </div>
-
-  <!-- Info -->
-  <div class="product-info" id="productInfo">
-    <!-- Populated by JS -->
-  </div>
-
+  <div class="product-info" id="productInfo"></div>
 </main>
 
-<!-- Add to Cart Bar (mobile) -->
+<!-- Add to Cart Bar -->
 <div class="add-to-cart-bar" id="addToCartBar">
   <button class="add-to-cart-btn" id="addToCartBtn" disabled>Select a size</button>
 </div>
+
+<!-- ═══ SCRIPTS ═══ -->
 
 <script>
 // ═══ PAGE FADE ═══
@@ -711,7 +753,6 @@ document.addEventListener('click', function(e) {
   setTimeout(function() { window.location.href = href; }, 600);
 });
 
-// Touch ring
 document.addEventListener('touchstart', function(e) {
   var r = document.createElement('div');
   r.className = 'touch-ring';
@@ -720,6 +761,83 @@ document.addEventListener('touchstart', function(e) {
   document.body.appendChild(r);
   setTimeout(function() { r.remove(); }, 800);
 });
+</script>
+
+<script>
+// ═══ PARTICLES ═══
+(function() {
+  var c = document.getElementById('particles');
+  for (var i = 0; i < 6; i++) {
+    var p = document.createElement('div');
+    p.className = 'particle';
+    p.style.left = Math.random() * 100 + '%';
+    var s = (1 + Math.random() * 3) + 'px';
+    p.style.width = s; p.style.height = s;
+    p.style.animationDuration = (10 + Math.random() * 18) + 's';
+    p.style.animationDelay = (Math.random() * 20) + 's';
+    c.appendChild(p);
+  }
+})();
+</script>
+
+<script>
+// ═══ AMBIENT CANVAS ═══
+(function() {
+  var canvas = document.getElementById('meshCanvas');
+  var ctx = canvas.getContext('2d');
+  var dpr = Math.min(window.devicePixelRatio || 1, 2);
+  var w, h;
+
+  function resize() {
+    w = canvas.offsetWidth; h = canvas.offsetHeight;
+    canvas.width = w * dpr; canvas.height = h * dpr;
+    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+  }
+
+  var blobs = [];
+  for (var i = 0; i < 5; i++) {
+    blobs.push({
+      x: 0.1 + Math.random() * 0.8, y: 0.1 + Math.random() * 0.8,
+      vx: (Math.random() - 0.5) * 0.0004, vy: (Math.random() - 0.5) * 0.0004,
+      radius: 0.3 + Math.random() * 0.25,
+      opacity: 0.025 + Math.random() * 0.025,
+      phase: Math.random() * Math.PI * 2,
+      pulseSpeed: 0.002 + Math.random() * 0.003
+    });
+  }
+
+  var animId;
+  function draw() {
+    ctx.clearRect(0, 0, w, h);
+    for (var i = 0; i < blobs.length; i++) {
+      var b = blobs[i];
+      b.phase += b.pulseSpeed;
+      b.x += b.vx + Math.sin(b.phase * 0.7) * 0.00015;
+      b.y += b.vy + Math.cos(b.phase * 0.5) * 0.00015;
+      if (b.x < -0.15 || b.x > 1.15) b.vx *= -1;
+      if (b.y < -0.15 || b.y > 1.15) b.vy *= -1;
+      var cx = b.x * w, cy = b.y * h, r = b.radius * Math.max(w, h);
+      var pulse = 0.65 + 0.35 * Math.sin(b.phase);
+      var op = b.opacity * pulse;
+      var grad = ctx.createRadialGradient(cx, cy, 0, cx, cy, r);
+      grad.addColorStop(0, 'rgba(212,175,55,' + op + ')');
+      grad.addColorStop(0.35, 'rgba(200,165,40,' + (op * 0.55) + ')');
+      grad.addColorStop(0.65, 'rgba(184,150,12,' + (op * 0.2) + ')');
+      grad.addColorStop(1, 'rgba(184,150,12,0)');
+      ctx.fillStyle = grad;
+      ctx.fillRect(0, 0, w, h);
+    }
+    animId = requestAnimationFrame(draw);
+  }
+
+  document.addEventListener('visibilitychange', function() {
+    if (document.hidden) cancelAnimationFrame(animId);
+    else draw();
+  });
+
+  resize(); draw();
+  window.addEventListener('resize', resize);
+})();
 </script>
 
 <script>
@@ -775,18 +893,15 @@ document.addEventListener('touchstart', function(e) {
   var selectedSize = null;
   var product = null;
 
-  // Get product from URL or session
   var params = new URLSearchParams(window.location.search);
   var productId = params.get('id');
 
-  // Try session first
   var cached = sessionStorage.getItem('omProduct');
   if (cached) {
     product = JSON.parse(cached);
     if (product.id !== productId) product = null;
   }
 
-  // Load from JSON if needed
   function init(p) {
     product = p;
     document.title = p.name + ' | Old Money Georgia';
@@ -821,7 +936,6 @@ document.addEventListener('touchstart', function(e) {
     return '$' + p.price_usd;
   }
 
-  // Gallery
   function renderGallery() {
     var scroll = document.getElementById('galleryScroll');
     var dots = document.getElementById('galleryDots');
@@ -843,7 +957,6 @@ document.addEventListener('touchstart', function(e) {
       dots.appendChild(dot);
     });
 
-    // Update dots on scroll
     scroll.addEventListener('scroll', function() {
       var idx = Math.round(scroll.scrollLeft / scroll.offsetWidth);
       dots.querySelectorAll('.product-gallery-dot').forEach(function(d, j) {
@@ -852,7 +965,6 @@ document.addEventListener('touchstart', function(e) {
     });
   }
 
-  // Info
   function renderInfo() {
     var info = document.getElementById('productInfo');
     var html = '';
@@ -877,7 +989,6 @@ document.addEventListener('touchstart', function(e) {
 
     info.innerHTML = html;
 
-    // Size selection
     var sizeBtns = document.querySelectorAll('.size-btn');
     var addBtn = document.getElementById('addToCartBtn');
 
@@ -892,7 +1003,6 @@ document.addEventListener('touchstart', function(e) {
       });
     });
 
-    // Price toggle
     document.getElementById('priceToggle').addEventListener('click', function() {
       currency = currency === 'gel' ? 'usd' : 'gel';
       sessionStorage.setItem('omCurrency', currency);
@@ -900,12 +1010,10 @@ document.addEventListener('touchstart', function(e) {
     });
   }
 
-  // Add to cart
   document.getElementById('addToCartBtn').addEventListener('click', function() {
     if (!selectedSize || !product) return;
     var btn = this;
 
-    // Get cart from session
     var cart = JSON.parse(sessionStorage.getItem('omCart') || '[]');
     var existing = cart.find(function(item) {
       return item.id === product.id && item.size === selectedSize;
@@ -928,7 +1036,6 @@ document.addEventListener('touchstart', function(e) {
     sessionStorage.setItem('omCart', JSON.stringify(cart));
     updateCartCount();
 
-    // Button feedback
     btn.classList.add('added');
     btn.textContent = 'Added to Cart ✓';
     setTimeout(function() {
@@ -937,7 +1044,6 @@ document.addEventListener('touchstart', function(e) {
     }, 2000);
   });
 
-  // Cart count
   function updateCartCount() {
     var cart = JSON.parse(sessionStorage.getItem('omCart') || '[]');
     var total = cart.reduce(function(sum, item) { return sum + item.qty; }, 0);
@@ -946,7 +1052,6 @@ document.addEventListener('touchstart', function(e) {
     el.classList.toggle('visible', total > 0);
   }
 
-  // Cart button → go to shop with cart open
   document.getElementById('productCartBtn').addEventListener('click', function() {
     sessionStorage.setItem('omOpenCart', 'true');
     document.getElementById('pageFade').style.opacity = '1';
