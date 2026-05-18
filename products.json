@@ -1,99 +1,18 @@
 [
   {
     "id": "om-001",
-    "name": "The Heritage Blazer",
+    "name": "The OM Collection Piece",
     "category": "Outerwear",
-    "price_gel": 890,
-    "price_usd": 340,
-    "description": "Impeccably tailored from Georgian wool. A silhouette that speaks before you do.",
-    "details": "100% Georgian Highland Wool. Handcrafted in Batumi. Silk-lined interior with gold-stamped monogram. Horn buttons sourced from the Caucasus.",
-    "sizes": ["XS", "S", "M", "L", "XL"],
-    "images": [
-      "https://placehold.co/800x1100/0a0806/d4af37?text=Heritage+Blazer",
-      "https://placehold.co/800x1100/0a0806/d4af37?text=Detail+View",
-      "https://placehold.co/800x1100/0a0806/d4af37?text=Back+View"
-    ],
-    "badge": "Signature",
-    "in_stock": true
-  },
-  {
-    "id": "om-002",
-    "name": "The Caucasus Overcoat",
-    "category": "Outerwear",
-    "price_gel": 1450,
-    "price_usd": 560,
-    "description": "Eight thousand years of heritage, woven into every thread.",
-    "details": "Italian cashmere-wool blend. Full canvas construction. Hand-stitched lapels. Concealed horn buttons. Unlined sleeves for natural drape.",
+    "price_gel": 300,
+    "price_usd": 115,
+    "description": "The first piece from Old Money Georgia. Handcrafted in Batumi. Pre-order now — release coming soon.",
+    "details": "Premium Georgian craftsmanship. Limited first edition. Pre-order secures your piece. Release date will be announced to all pre-order customers first.",
     "sizes": ["S", "M", "L", "XL"],
     "images": [
-      "https://placehold.co/800x1100/0a0806/d4af37?text=Caucasus+Overcoat",
-      "https://placehold.co/800x1100/0a0806/d4af37?text=Detail+View"
+      "https://placehold.co/800x1100/0a0806/d4af37?text=O+M",
+      "https://placehold.co/800x1100/0a0806/d4af37?text=Coming+Soon"
     ],
-    "badge": "Limited",
-    "in_stock": true
-  },
-  {
-    "id": "om-003",
-    "name": "The Colchis Shirt",
-    "category": "Tops",
-    "price_gel": 420,
-    "price_usd": 160,
-    "description": "Whisper-weight cotton. Precision in every stitch.",
-    "details": "Egyptian cotton, 140 thread count. Mother-of-pearl buttons. French cuffs. Reinforced collar stays. Handmade in Batumi.",
-    "sizes": ["XS", "S", "M", "L", "XL", "XXL"],
-    "images": [
-      "https://placehold.co/800x1100/0a0806/d4af37?text=Colchis+Shirt",
-      "https://placehold.co/800x1100/0a0806/d4af37?text=Detail+View"
-    ],
-    "badge": null,
-    "in_stock": true
-  },
-  {
-    "id": "om-004",
-    "name": "The Batumi Trousers",
-    "category": "Bottoms",
-    "price_gel": 580,
-    "price_usd": 220,
-    "description": "Tailored for those who move with purpose.",
-    "details": "Wool-linen blend. Half-lined. Extended waistband with side adjusters. No belt loops by design. Hand-finished hems.",
-    "sizes": ["S", "M", "L", "XL"],
-    "images": [
-      "https://placehold.co/800x1100/0a0806/d4af37?text=Batumi+Trousers",
-      "https://placehold.co/800x1100/0a0806/d4af37?text=Detail+View"
-    ],
-    "badge": null,
-    "in_stock": true
-  },
-  {
-    "id": "om-005",
-    "name": "The Silk Cravat",
-    "category": "Accessories",
-    "price_gel": 280,
-    "price_usd": 110,
-    "description": "A subtle declaration. Hand-rolled edges. Georgian silk.",
-    "details": "100% mulberry silk. Hand-rolled edges. Gold-thread OM monogram. Presented in a handcrafted wooden box.",
-    "sizes": ["One Size"],
-    "images": [
-      "https://placehold.co/800x1100/0a0806/d4af37?text=Silk+Cravat",
-      "https://placehold.co/800x1100/0a0806/d4af37?text=Detail+View"
-    ],
-    "badge": "New",
-    "in_stock": true
-  },
-  {
-    "id": "om-006",
-    "name": "The Timekeeper Cufflinks",
-    "category": "Accessories",
-    "price_gel": 520,
-    "price_usd": 200,
-    "description": "Forged in gold. Engraved by hand. Worn by the discerning.",
-    "details": "18K gold-plated brass. Hand-engraved Georgian motif. T-bar closure. Presented in leather case with certificate of authenticity.",
-    "sizes": ["One Size"],
-    "images": [
-      "https://placehold.co/800x1100/0a0806/d4af37?text=Timekeeper+Cufflinks",
-      "https://placehold.co/800x1100/0a0806/d4af37?text=Detail+View"
-    ],
-    "badge": "Signature",
+    "badge": "Pre-Order",
     "in_stock": true
   }
 ]
