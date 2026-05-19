@@ -1843,7 +1843,12 @@ document.addEventListener('touchstart', function(e) {
 /* ── Fullscreen Overlay ── */
 .om-nav-overlay {
   position: fixed;
-  inset: 0;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 100vh;
+  height: 100dvh;
   background: rgba(10, 8, 6, 0.97);
   backdrop-filter: blur(24px);
   -webkit-backdrop-filter: blur(24px);
@@ -1856,13 +1861,16 @@ document.addEventListener('touchstart', function(e) {
   flex-direction: column;
   align-items: center;
   justify-content: flex-start;
-  overflow-y: auto;
+  overflow-y: scroll;
   overflow-x: hidden;
   -webkit-overflow-scrolling: touch;
-  padding: 110px 20px 180px;
+  overscroll-behavior: contain;
+  touch-action: pan-y;
+  padding: 110px 20px 240px;
   scrollbar-width: none;
   -ms-overflow-style: none;
 }
+
 
 .om-nav-overlay::-webkit-scrollbar {
   display: none;
@@ -2209,12 +2217,19 @@ document.addEventListener('touchstart', function(e) {
 
 
 
+    var savedScrollY = 0;
+
   function openMenu() {
     isOpen = true;
+    savedScrollY = window.pageYOffset;
     burger.classList.add('active');
     burger.setAttribute('aria-expanded', 'true');
     overlay.classList.add('open');
-    document.body.style.overflow = 'hidden';
+    document.body.style.position = 'fixed';
+    document.body.style.top = '-' + savedScrollY + 'px';
+    document.body.style.left = '0';
+    document.body.style.right = '0';
+    document.body.style.width = '100%';
   }
 
   function closeMenu(callback) {
@@ -2222,11 +2237,17 @@ document.addEventListener('touchstart', function(e) {
     burger.classList.remove('active');
     burger.setAttribute('aria-expanded', 'false');
     overlay.classList.remove('open');
-    document.body.style.overflow = '';
+    document.body.style.position = '';
+    document.body.style.top = '';
+    document.body.style.left = '';
+    document.body.style.right = '';
+    document.body.style.width = '';
+    window.scrollTo(0, savedScrollY);
     if (callback) {
       setTimeout(callback, 650);
     }
   }
+
 
   burger.addEventListener('click', function() {
     if (!isOpen) {
