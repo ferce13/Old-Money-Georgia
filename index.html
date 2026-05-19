@@ -670,7 +670,8 @@ html {
 <div class="corner tr"><svg viewBox="0 0 60 60" fill="none"><path d="M1 59V1H59" stroke="#d4af37" stroke-width="0.5"/></svg></div>
 <div class="corner bl"><svg viewBox="0 0 60 60" fill="none"><path d="M1 59V1H59" stroke="#d4af37" stroke-width="0.5"/></svg></div>
 <div class="corner br"><svg viewBox="0 0 60 60" fill="none"><path d="M1 59V1H59" stroke="#d4af37" stroke-width="0.5"/></svg></div>
-<a href="shop.html" id="headerCartBtn" style="position:fixed;top:calc(26px + env(safe-area-inset-top));right:22px;width:48px;height:48px;border:1px solid rgba(212,175,55,0.35);border-radius:50%;background:rgba(10,8,6,0.92);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);display:flex;align-items:center;justify-content:center;z-index:10002;opacity:0;transition:opacity 0.6s ease,border-color 0.4s,box-shadow 0.4s;box-shadow:0 0 30px rgba(212,175,55,0.06);text-decoration:none;-webkit-tap-highlight-color:transparent;color:rgba(154,142,117,0.5);"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/></svg></a>
+<a href="shop.html" id="headerCartBtn" aria-label="Collection"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/></svg></a>
+
 
 <section class="hero">
   <img class="hero-logo" src="https://i.imgur.com/aWep1lQ.jpeg" alt="Old Money Georgia"/>
@@ -982,7 +983,7 @@ document.addEventListener('touchstart', function(e) {
 
 <div id="musicBtn" style="
   position: fixed;
-  bottom: calc(24px + env(safe-area-inset-bottom));
+  bottom: calc(110px + env(safe-area-inset-bottom));
   right: 24px;
   width: 52px;
   height: 52px;
@@ -1216,10 +1217,51 @@ document.addEventListener('touchstart', function(e) {
 
 <!-- ═══ OM Chat Widget ═══ -->
 <style>
+  /* ── Header Cart Button ── */
+#headerCartBtn {
+  position: fixed;
+  top: calc(26px + env(safe-area-inset-top));
+  right: 22px;
+  width: 48px;
+  height: 48px;
+  border: 1px solid rgba(212, 175, 55, 0.35);
+  border-radius: 50%;
+  background: rgba(10, 8, 6, 0.92);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 10002;
+  opacity: 0;
+  text-decoration: none;
+  color: #d4af37;
+  -webkit-tap-highlight-color: transparent;
+  box-shadow: 0 0 30px rgba(212, 175, 55, 0.06);
+  transition: opacity 0.6s ease, border-color 0.4s, box-shadow 0.4s, transform 0.4s;
+}
+
+#headerCartBtn::before {
+  content: '';
+  position: absolute;
+  inset: -5px;
+  border: 1px solid rgba(212, 175, 55, 0.1);
+  border-radius: 50%;
+  animation: omBtnPulse 3s ease-in-out infinite;
+  pointer-events: none;
+}
+
+#headerCartBtn:active {
+  border-color: rgba(212, 175, 55, 0.7);
+  box-shadow: 0 0 35px rgba(212, 175, 55, 0.2);
+  transform: scale(0.92);
+}
+
+
 /* Chat Button — Elegant Circle */
 .om-chat-btn {
   position: fixed;
-  bottom: calc(84px + env(safe-area-inset-bottom));
+  bottom: calc(50px + env(safe-area-inset-bottom));
   right: 24px;
   width: 52px;
   height: 52px;
@@ -1307,7 +1349,7 @@ document.addEventListener('touchstart', function(e) {
 
 @media (min-width: 500px) {
   .om-chat-window {
-        bottom: 24px;
+        bottom: 50px;
     right: 24px;
     width: 380px;
     max-height: 540px;
@@ -1813,9 +1855,19 @@ document.addEventListener('touchstart', function(e) {
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
-  overflow: hidden;
+  justify-content: flex-start;
+  overflow-y: auto;
+  overflow-x: hidden;
+  -webkit-overflow-scrolling: touch;
+  padding: 110px 20px 180px;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
 }
+
+.om-nav-overlay::-webkit-scrollbar {
+  display: none;
+}
+
 
 .om-nav-overlay.open {
   opacity: 1;
@@ -1974,12 +2026,15 @@ document.addEventListener('touchstart', function(e) {
 
 /* ── Decorative Corners ── */
 .om-nav-corner {
-  position: absolute;
+  position: fixed;
   width: 28px;
   height: 28px;
   opacity: 0;
   transition: opacity 0.6s ease 0.45s;
+  z-index: 10001;
+  pointer-events: none;
 }
+
 
 .om-nav-overlay.open .om-nav-corner {
   opacity: 0.12;
@@ -1994,15 +2049,24 @@ document.addEventListener('touchstart', function(e) {
 
 /* ── Footer inside menu ── */
 .om-nav-footer {
-  position: absolute;
-  bottom: 38px;
+  position: fixed;
+  bottom: 0;
   left: 0;
   right: 0;
   text-align: center;
+  padding: 60px 20px 38px;
+  background: linear-gradient(180deg, rgba(10, 8, 6, 0) 0%, rgba(10, 8, 6, 0.85) 40%, rgba(10, 8, 6, 0.97) 100%);
+  pointer-events: none;
   opacity: 0;
   transform: translateY(10px);
   transition: opacity 0.5s ease, transform 0.5s ease;
+  z-index: 10002;
 }
+
+.om-nav-footer .om-nav-social {
+  pointer-events: auto;
+}
+
 
 .om-nav-overlay.open .om-nav-footer {
   opacity: 1;
@@ -2129,15 +2193,20 @@ document.addEventListener('touchstart', function(e) {
   var scrollLinks = document.querySelectorAll('.om-nav-scroll');
   var isOpen = false;
 
-  // Show burger after splash disappears
+    // Show burger after splash disappears
   setTimeout(function() {
-  burger.classList.add('visible');
-    var cartBtn = document.getElementById('headerCartBtn');
-if (cartBtn) cartBtn.style.opacity = '1';
+    burger.classList.add('visible');
 
-  var tlCorner = document.querySelector('.corner.tl');
-  if (tlCorner) tlCorner.style.opacity = '0';
-}, 2800);
+    var cartBtn = document.getElementById('headerCartBtn');
+    if (cartBtn) cartBtn.style.opacity = '1';
+
+    var tlCorner = document.querySelector('.corner.tl');
+    if (tlCorner) tlCorner.style.opacity = '0';
+
+    var trCorner = document.querySelector('.corner.tr');
+    if (trCorner) trCorner.style.opacity = '0';
+  }, 2800);
+
 
 
   function openMenu() {
