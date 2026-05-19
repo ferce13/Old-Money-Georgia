@@ -2213,7 +2213,8 @@ document.addEventListener('touchstart', function(e) {
     burger.classList.add('visible');
 
     var cartBtn = document.getElementById('headerCartBtn');
-    if (cartBtn) cartBtn.style.opacity = '1';
+    if (cartBtn) { cartBtn.style.opacity = '1'; cartBtn.style.pointerEvents = 'auto'; }
+
 
     var tlCorner = document.querySelector('.corner.tl');
     if (tlCorner) tlCorner.style.opacity = '0';
