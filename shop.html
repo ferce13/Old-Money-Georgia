@@ -876,6 +876,35 @@ body {
 }
 
 .cart-sidebar.open::before { height: 100%; }
+  /* Cart close handle */
+.cart-close-handle {
+  position: absolute;
+  top: 0; left: 0;
+  width: 28px;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  z-index: 2;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.cart-close-handle::before {
+  content: '';
+  width: 3px;
+  height: 48px;
+  background: linear-gradient(180deg, transparent, var(--gold), transparent);
+  border-radius: 2px;
+  opacity: 0.4;
+  transition: opacity 0.3s, height 0.3s;
+}
+
+.cart-close-handle:active::before {
+  opacity: 0.8;
+  height: 64px;
+}
+
 
 .cart-header {
   display: flex;
@@ -1286,6 +1315,7 @@ body.locked {
 <!-- ═══ CART SIDEBAR ═══ -->
 <div class="cart-overlay" id="cartOverlay"></div>
 <div class="cart-sidebar" id="cartSidebar">
+    <div class="cart-close-handle" id="cartCloseHandle"></div>
   <div class="cart-header">
     <div>
       <span class="cart-title">Cart</span>
@@ -1795,6 +1825,7 @@ document.addEventListener('touchstart', function(e) {
   cartToggle.addEventListener('click', openCart);
   cartClose.addEventListener('click', closeCart);
   cartOverlay.addEventListener('click', closeCart);
+  document.getElementById('cartCloseHandle').addEventListener('click', closeCart);
   cartContinue.addEventListener('click', closeCart);
 
   cartCheckoutBtn.addEventListener('click', function() {
