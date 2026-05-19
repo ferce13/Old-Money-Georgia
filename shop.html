@@ -1825,42 +1825,10 @@ document.addEventListener('touchstart', function(e) {
   cartToggle.addEventListener('click', openCart);
   cartClose.addEventListener('click', closeCart);
   cartOverlay.addEventListener('click', closeCart);
+  document.getElementById('cartCloseHandle').addEventListener('click', closeCart);
   cartContinue.addEventListener('click', closeCart);
   
-  // Swipe to close cart
-  (function() {
-    var startX = 0;
-    var currentX = 0;
-    var dragging = false;
-
-    cartSidebar.addEventListener('touchstart', function(e) {
-      startX = e.touches[0].clientX;
-      currentX = startX;
-      dragging = true;
-      cartSidebar.style.transition = 'none';
-    });
-
-    cartSidebar.addEventListener('touchmove', function(e) {
-      if (!dragging) return;
-      currentX = e.touches[0].clientX;
-      var diff = currentX - startX;
-      if (diff > 0) {
-        cartSidebar.style.transform = 'translateX(' + diff + 'px)';
-      }
-    });
-
-    cartSidebar.addEventListener('touchend', function() {
-      if (!dragging) return;
-      dragging = false;
-      var diff = currentX - startX;
-      cartSidebar.style.transition = '';
-      if (diff > 80) {
-        closeCart();
-      } else {
-        cartSidebar.style.transform = '';
-      }
-    });
-  })();
+  
 
 
   cartCheckoutBtn.addEventListener('click', function() {
