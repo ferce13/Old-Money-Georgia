@@ -53,15 +53,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
 
-  <!-- Google tag (gtag.js) -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-BV3T1X57VX"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-
-  gtag('config', 'G-BV3T1X57VX');
-</script>
+<link rel="stylesheet" href="cookie-consent.css">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600&family=Cormorant+Garamond:ital,wght@0,300;1,300&display=swap" rel="stylesheet">
@@ -531,77 +523,8 @@ text-transform: uppercase;
   background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
   animation: shimmer 3s ease-in-out infinite;
 }
-.cookie-banner {
-  position: fixed;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  background: rgba(10,8,6,0.97);
-  border-top: 1px solid rgba(212,175,55,0.15);
-  padding: 14px 20px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 14px;
-  z-index: 9997;
-  opacity: 0;
-  animation: cookieFadeIn 0.8s ease 3.5s forwards;
-  backdrop-filter: blur(10px);
-  width: 100%;
-  max-width: 100%;
-  flex-direction: row;
-  text-align: center;
-}
 
 
-
-.cookie-text {
-  font-family: 'Cormorant Garamond', serif;
-  font-size: 13px;
-  font-style: italic;
-  color: rgba(232,223,200,0.7);
-  letter-spacing: 0.03em;
-}
-
-.cookie-btn {
-  font-family: 'Cinzel', serif;
-  font-size: 8px;
-  letter-spacing: 0.2em;
-  text-transform: uppercase;
-  color: #0a0806;
-  background: linear-gradient(135deg, #b8960c, #d4af37, #b8960c);
-  border: none;
-  padding: 8px 16px;
-  cursor: pointer;
-  white-space: nowrap;
-  position: relative;
-  overflow: hidden;
-}
-
-
-.cookie-btn::after {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: -100%;
-  width: 60%;
-  height: 100%;
-  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
-  animation: shimmer 3s ease-in-out infinite;
-}
-
-.cookie-banner.hidden {
-  opacity: 0;
-  transition: opacity 0.5s ease;
-  pointer-events: none;
-  display: none;
-}
-
-
-@keyframes cookieFadeIn {
-  0% { opacity: 0; transform: translateY(20px); }
-  100% { opacity: 1; transform: translateY(0); }
-}
 
 
 html {
@@ -863,23 +786,9 @@ document.addEventListener('touchstart', function(e) {
 })();
 </script>
 
-<div id="cookieBanner" class="cookie-banner">
-  <p class="cookie-text">We use cookies to ensure the finest experience.</p>
-  <button id="cookieAccept" class="cookie-btn">Allow</button>
-</div>
-<script>
-(function() {
-  if (localStorage.getItem('cookieAccepted')) {
-    var b = document.getElementById('cookieBanner');
-    if (b) b.style.display = 'none';
-    return;
-  }
-  document.getElementById('cookieAccept').addEventListener('click', function() {
-    localStorage.setItem('cookieAccepted', 'true');
-    document.getElementById('cookieBanner').classList.add('hidden');
-  });
-})();
-</script>
+
+<script src="cookie-consent.js" defer></script>
+
 <script>
 (function() {
   var canvas = document.getElementById('meshCanvas');
