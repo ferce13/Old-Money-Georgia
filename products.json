@@ -1,18 +1,1 @@
-[
-  {
-    "id": "om-001",
-    "name": "The OM Collection Piece",
-    "category": "Outerwear",
-    "price_gel": 300,
-    "price_usd": 115,
-    "description": "The first piece from Old Money Georgia. Handcrafted in Batumi. Pre-order now — release coming soon.",
-    "details": "Premium Georgian craftsmanship. Limited first edition. Pre-order secures your piece. Release date will be announced to all pre-order customers first.",
-    "sizes": ["S", "M", "L", "XL"],
-    "images": [
-      "https://placehold.co/800x1100/0a0806/d4af37?text=O+M",
-      "https://placehold.co/800x1100/0a0806/d4af37?text=Coming+Soon"
-    ],
-    "badge": "Pre-Order",
-    "in_stock": true
-  }
-]
+[]
