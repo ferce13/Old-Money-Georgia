@@ -1046,37 +1046,35 @@ document.addEventListener('touchstart', function(e) {
 <script>
 (function() {
   var fade = document.getElementById('pageFade');
-  var navigating = false;
-
-  function reveal() {
-    navigating = false;
-    fade.style.opacity = '0';
-  }
-
-  window.addEventListener('load', function() { setTimeout(reveal, 100); });
+  window.addEventListener('load', function() {
+    setTimeout(function() {
+      fade.style.opacity = '0';
+    }, 100);
+  });
   window.addEventListener('pageshow', function(e) {
-    if (e.persisted) reveal();
+    if (e.persisted) {
+      fade.style.opacity = '0';
+    }
   });
 
+
+  // Fade out при клике на ссылку
   document.addEventListener('click', function(e) {
     var link = e.target.closest('a');
     if (!link) return;
-    // меню само управляет своими переходами — не вмешиваемся
-    if (link.closest('#omNavOverlay')) return;
     var href = link.getAttribute('href');
     if (!href) return;
-    if (href.charAt(0) === '#' || href.indexOf('mailto:') === 0 || href.indexOf('tel:') === 0 || link.getAttribute('target') === '_blank') return;
-    if (/^https?:\/\//i.test(href) && href.indexOf('oldmoney.ge') === -1) return;
-    if (navigating) return;
+    // Только локальные ссылки (не instagram, не mailto)
+    if (href.startsWith('http') || href.startsWith('mailto') || href.startsWith('#') || link.getAttribute('target') === '_blank') return;
 
     e.preventDefault();
-    navigating = true;
     fade.style.opacity = '1';
-    setTimeout(function() { window.location.href = href; }, 500);
+    setTimeout(function() {
+      window.location.href = href;
+    }, 600);
   });
 })();
 </script>
-
 <!-- ═══ Parallax Scroll ═══ -->
 <script>
 (function() {
@@ -2199,24 +2197,21 @@ document.addEventListener('touchstart', function(e) {
       if (chatBtn) chatBtn.click();
     });
   });
-    // Page links — close menu, fade, then navigate
+  // Page links — close menu, fade, then navigate
   var pageLinks = overlay.querySelectorAll('.om-nav-link:not(.om-nav-scroll):not([target="_blank"]):not(#omNavContact)');
   pageLinks.forEach(function(link) {
     link.addEventListener('click', function(e) {
       e.preventDefault();
-      if (window._omNavigating) return;
-      window._omNavigating = true;
       var href = this.getAttribute('href');
       var fade = document.getElementById('pageFade');
       closeMenu(function() {
         if (fade) fade.style.opacity = '1';
         setTimeout(function() {
           window.location.href = href;
-        }, 400);
+        }, 600);
       });
     });
   });
-
 
   // ESC to close
   document.addEventListener('keydown', function(e) {
@@ -2229,4 +2224,3 @@ document.addEventListener('touchstart', function(e) {
 
 </body>
 </html>
-
