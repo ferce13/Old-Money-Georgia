@@ -2135,36 +2135,32 @@ document.addEventListener('touchstart', function(e) {
 
 
 
-  var savedScrollY = 0;
+var savedScrollY = 0;
 
-  function openMenu() {
-    isOpen = true;
-    savedScrollY = window.pageYOffset;
-    burger.classList.add('active');
-    burger.setAttribute('aria-expanded', 'true');
-    overlay.classList.add('open');
-    document.body.style.position = 'fixed';
-    document.body.style.top = '-' + savedScrollY + 'px';
-    document.body.style.left = '0';
-    document.body.style.right = '0';
-    document.body.style.width = '100%';
-  }
+function openMenu() {
+  isOpen = true;
+  savedScrollY = window.scrollY;
 
-  function closeMenu(callback) {
-    isOpen = false;
-    burger.classList.remove('active');
-    burger.setAttribute('aria-expanded', 'false');
-    overlay.classList.remove('open');
-    document.body.style.position = '';
-    document.body.style.top = '';
-    document.body.style.left = '';
-    document.body.style.right = '';
-    document.body.style.width = '';
-    window.scrollTo(0, savedScrollY);
-    if (callback) {
-      setTimeout(callback, 650);
-    }
+  burger.classList.add('active');
+  burger.setAttribute('aria-expanded', 'true');
+  overlay.classList.add('open');
+
+  document.body.style.overflow = 'hidden';
+}
+
+function closeMenu(callback) {
+  isOpen = false;
+
+  burger.classList.remove('active');
+  burger.setAttribute('aria-expanded', 'false');
+  overlay.classList.remove('open');
+
+  document.body.style.overflow = '';
+
+  if (callback) {
+    setTimeout(callback, 650);
   }
+}
 
 
   burger.addEventListener('click', function() {
@@ -2221,6 +2217,6 @@ document.addEventListener('touchstart', function(e) {
   });
 })();
 </script>
-
+window.history.scrollRestoration = "auto";
 </body>
 </html>
