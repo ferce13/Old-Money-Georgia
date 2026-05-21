@@ -1,5 +1,4 @@
 <!DOCTYPE html>
-
 <html lang="ka">
 <head>
 <meta charset="UTF-8">
@@ -140,7 +139,7 @@ position: relative;
 }
 
 .story-block::before {
-content: ‘’;
+content: '';
 position: absolute;
 left: 50%;
 top: 0;
@@ -360,7 +359,7 @@ transform: scale(0.97);
 }
 
 .signup-btn::after {
-content: ‘’;
+content: '';
 position: absolute;
 top: 0; left: -100%;
 width: 60%; height: 100%;
@@ -448,11 +447,9 @@ pointer-events: none;
 .bl { bottom: 16px; left: 16px; transform: scaleY(-1); }
 .br { bottom: 16px; right: 16px; transform: scale(-1); }
 </style>
-
 </head>
 <body>
 <canvas id="meshCanvas" style="position:fixed;top:0;left:0;width:100%;height:100%;pointer-events:none;z-index:1;opacity:0;transition:opacity 1.5s ease;"></canvas>
-
 
 <div class="progress-bar" id="progress"></div>
 <div class="particles" id="particles"></div>
@@ -647,8 +644,6 @@ document.addEventListener('touchstart', function(e) {
   draw();
   window.addEventListener('resize', resize);
 })();
-
-
 </script>
 <script>
 (function() {
@@ -739,13 +734,11 @@ document.addEventListener('touchstart', function(e) {
 
   audio.volume = 0;
 
-  // Восстановить позицию из другой страницы
   var savedTime = parseFloat(sessionStorage.getItem('omMusicTime') || '0');
   if (savedTime > 0) {
     audio.currentTime = savedTime;
   }
 
-  // Сохранять позицию каждую секунду
   setInterval(function() {
     if (playing) {
       sessionStorage.setItem('omMusicTime', audio.currentTime);
@@ -802,7 +795,6 @@ document.addEventListener('touchstart', function(e) {
     localStorage.setItem('omMusic', 'off');
   }
 
-  // Кнопка toggle
   btn.addEventListener('click', function() {
     if (!playing) {
       startPlaying();
@@ -810,78 +802,56 @@ document.addEventListener('touchstart', function(e) {
       stopPlaying();
     }
   });
-
-  // Автостарт после splash (3 сек) при первом визите,
-  // или сразу если уже был включён на другой странице
-  var musicPref = localStorage.getItem('omMusic');
-
-    // Музыка только по кнопке
-
 })();
 </script>
-<!-- ═══ Page Transitions ═══ -->
-<div id="pageFade" style="
-  position: fixed;
-  inset: 0;
-  background: #0a0806;
-  z-index: 99999;
-  pointer-events: none;
-  opacity: 1;
-  transition: opacity 0.6s ease;
-"></div>
+<!-- ═══ Page Transitions (исправлено) ═══ -->
+<div id="pageFade" style="position:fixed;inset:0;background:#0a0806;z-index:99999;pointer-events:none;opacity:1;transition:opacity 0.6s ease;"></div>
 
 <script>
 (function() {
-  // Fade in при загрузке
   var fade = document.getElementById('pageFade');
-  fade.style.opacity = '1';
-  window.addEventListener('load', function() {
-    setTimeout(function() {
-      fade.style.opacity = '0';
-    }, 100);
-  });
-    // Возврат кнопкой «назад» в браузере (bfcache)
+  var navigating = false;
+
+  function reveal() {
+    navigating = false;
+    fade.style.opacity = '0';
+    var c = document.getElementById('meshCanvas');
+    if (c) c.style.opacity = '1';
+  }
+
+  // Снять чёрную штору как можно раньше (не ждём музыку/картинки)
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', function() { setTimeout(reveal, 50); });
+  } else {
+    setTimeout(reveal, 50);
+  }
+
+  // Возврат «назад/вперёд» из кэша Safari — всегда сбрасываем штору и блокировку
   window.addEventListener('pageshow', function(e) {
-    if (e.persisted) {
-      fade.style.opacity = '0';
-      var c = document.getElementById('meshCanvas');
-      if (c) c.style.opacity = '1';
-    }
+    if (e.persisted) reveal();
   });
 
-
-  // Fade out при клике на ссылку
-  document.addEventListener('click', function(e) {
-    var link = e.target.closest('a');
-    ...
-    }, 600);
-  });
-})();
-</script>
-
-
-
-  // Fade out при клике на ссылку
+  // Плавное затемнение перед переходом по внутренней ссылке
   document.addEventListener('click', function(e) {
     var link = e.target.closest('a');
     if (!link) return;
     var href = link.getAttribute('href');
     if (!href) return;
-    // Только локальные ссылки (не instagram, не mailto)
-    if (href.startsWith('http') || href.startsWith('mailto') || href.startsWith('#') || link.getAttribute('target') === '_blank') return;
+    if (href.charAt(0) === '#' || href.indexOf('mailto:') === 0 || href.indexOf('tel:') === 0 || link.getAttribute('target') === '_blank') return;
+    // внешние ссылки (Instagram и т.п.) — обычный переход, без затемнения
+    if (/^https?:\/\//i.test(href) && href.indexOf('oldmoney.ge') === -1) return;
+    if (navigating) return;
 
     e.preventDefault();
+    navigating = true;
     fade.style.opacity = '1';
-    setTimeout(function() {
-      window.location.href = href;
-    }, 600);
+    setTimeout(function() { window.location.href = href; }, 500);
   });
 })();
 </script>
 <!-- ═══ Parallax Scroll ═══ -->
 <script>
 (function() {
-  // Добавляем parallax к секциям
   var items = [
     { sel: '.philosophy .section-label', speed: 0.08 },
     { sel: '.philosophy .section-text', speed: 0.05 },
@@ -901,12 +871,10 @@ document.addEventListener('touchstart', function(e) {
   });
 
   function update() {
-    var scrollY = window.pageYOffset;
     var winH = window.innerHeight;
     for (var i = 0; i < elements.length; i++) {
       var obj = elements[i];
       var rect = obj.el.getBoundingClientRect();
-      // Только если элемент видим
       if (rect.top < winH && rect.bottom > 0) {
         var center = rect.top + rect.height / 2;
         var offset = (center - winH / 2) * obj.speed;
@@ -919,7 +887,6 @@ document.addEventListener('touchstart', function(e) {
   update();
 })();
 </script>
-
 
 </body>
 </html>
