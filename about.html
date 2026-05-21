@@ -646,11 +646,8 @@ document.addEventListener('touchstart', function(e) {
   resize();
   draw();
   window.addEventListener('resize', resize);
-  // Плавно показать золотой фон после полной загрузки
-  window.addEventListener('load', function() {
-    setTimeout(function() { canvas.style.opacity = '1'; }, 700);
-  });
 })();
+
 
 </script>
 <script>
@@ -829,7 +826,7 @@ document.addEventListener('touchstart', function(e) {
   background: #0a0806;
   z-index: 99999;
   pointer-events: none;
-  opacity: 0;
+  opacity: 1;
   transition: opacity 0.6s ease;
 "></div>
 
@@ -851,6 +848,17 @@ document.addEventListener('touchstart', function(e) {
       if (c) c.style.opacity = '1';
     }
   });
+
+
+  // Fade out при клике на ссылку
+  document.addEventListener('click', function(e) {
+    var link = e.target.closest('a');
+    ...
+    }, 600);
+  });
+})();
+</script>
+
 
 
   // Fade out при клике на ссылку
